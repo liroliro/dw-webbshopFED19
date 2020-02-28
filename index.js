@@ -5,7 +5,6 @@ const productRouter = require('./router/productRouter');
 const path = require('path');
 const app = express();
 
-app.set('view engine', 'ejs');
 
 app.use(productRouter);
 
