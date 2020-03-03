@@ -1,3 +1,5 @@
+<%- include("header.ejs")%>
+
 <div class="site">
 
     <nav class="nav">
@@ -29,18 +31,39 @@
                 meny 2
             </div>
             <ul class="subnav__list">
-                <input type="range" min="1" max="100" value="50">
-                <form>
-                        <div data-role="rangeslider" data-mini="true">
-                                <label for="range-4a">Room:</label>
-                                <input type="range" name="range-4a" id="range-4a" min="0" max="100" value="0">
-                               
-                            </div>
-                </form>
 
+                <form>
+
+                    <div class="range-control">
+                        <input id="inputRange" type="range" min="1" max="12" step="1" data-thumbwidth="6">
+                        <output name="rangeVal">6</output>
+                    </div>
+
+                </form>
             </ul>
             <div>
                 <li class="subnav__item"><a href='/checkout'>Varukorg</a></li>
             </div>
         </div>
     </div>
+    <script>
+        $('input[type="range"]').on('input', function () {
+
+            var control = $(this),
+                controlMin = control.attr('min'),
+                controlMax = control.attr('max'),
+                controlVal = control.val(),
+                controlThumbWidth = control.data('thumbwidth');
+
+            var range = controlMax - controlMin;
+
+            var position = ((controlVal - controlMin) / range) * 100;
+            var positionOffset = Math.round(controlThumbWidth * position / 100) - (controlThumbWidth / 2);
+            var output = control.next('output');
+
+            output
+                .css('left', 'calc(' + position + '% - ' + positionOffset + 'px)')
+                .text(controlVal);
+
+        });
+    </script>
