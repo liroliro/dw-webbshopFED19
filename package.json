@@ -1,22 +1,30 @@
 {
-	"name": "dw-webbshop",
-	"version": "1.0.0",
-	"description": "",
-	"main": "index.js",
-	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
-		"server": "nodemon index.js"
-	},
-	"keywords": [],
-	"author": "",
-	"license": "ISC",
-	"dependencies": {
-		"ejs": "^3.0.1",
-		"express": "^4.17.1",
-		"mongoose": "^5.9.2"
-	},
-	"devDependencies": {
-		"chai": "^4.2.0",
-		"mocha": "^7.0.1"
-	}
+  "name": "dw-webbshop",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.0.1",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.2"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^7.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liroliro/dw-webbshopFED19.git"
+  },
+  "bugs": {
+    "url": "https://github.com/liroliro/dw-webbshopFED19/issues"
+  },
+  "homepage": "https://github.com/liroliro/dw-webbshopFED19#readme",
+  "description": ""
 }
