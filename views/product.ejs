@@ -1,2 +1,14 @@
 <%- include("header.ejs")%>
-<%- include("menu.ejs")%>
+<body>
+    <div class='productList'>
+        <%= Items.forEach((product) => { %>
+            <div class='productItem'>
+                <!-- <img src="<%= product.image %>" alt="Product-image"> -->
+                <p class='product__name'><%= product.name %></p>
+                <p class='product__info'><%= product.room %></p>
+                <p class='product__price'><%= product.price %></p>
+                <p class='product__url'><%= product.url %></p>
+            </div>
+        <% }) %>
+    </div>
+</body>
