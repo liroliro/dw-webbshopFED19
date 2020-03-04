@@ -29,6 +29,7 @@ router.get('/createproduct', (req, res) => {
 
 //FUNKAR INTE VVVV
 router.post('/createproduct', async (req, res) => {
+    console.log(req.body.name + ' ' + req.body.room + ' ' + req.body.price + ' '  + req.body.url)
     const apartment = new ProductModel({
         name: req.body.name,
         room: req.body.room,
