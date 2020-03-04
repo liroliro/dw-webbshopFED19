@@ -1,11 +1,11 @@
 <%- include("header.ejs")%>
 <%- include("menu.ejs")%>
-<form action="/createproduct" method="post">
+<form action="/createproduct" method="POST">
 
-    <input type="text" name="text" id="name" placeholder="Text">
+    <input type="text" name="name" id="name" placeholder="Text">
     <input type="text" name="room" id="room" placeholder="Room">
-    <input type="text" name="price" id="price" placeholder="Price">
-    <input type="text" name="url" id="url" placeholder="Url">
+    <input type="text" name="productPrice" id="price" placeholder="Price">
+    <input type="text" name="productUrl" id="url" placeholder="Url">
 
     <input type="submit" id="btncreateproduct" value="create">
 
