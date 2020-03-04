@@ -30,15 +30,21 @@ router.get('/createproduct', (req, res) => {
 //FUNKAR INTE VVVV
 router.post('/createproduct', async (req, res) => {
     console.log(req.body.name + ' ' + req.body.room + ' ' + req.body.price + ' '  + req.body.url)
-    const apartment = new ProductModel({
+    const apartment = await new ProductModel({
         name: req.body.name,
         room: req.body.room,
         price: req.body.price,
         url: req.body.url
     })
 
-    await apartment.save();
-    res.redirect('/createproduct')
+    apartment.save((error, success) => {
+        if(error){
+            res.send(error._message)
+        }else{
+            res.render("createproduct")
+            
+        }
+    })
 
 })
 //FUNKAR INTE ^^^^
