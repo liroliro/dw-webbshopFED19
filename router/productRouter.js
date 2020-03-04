@@ -27,7 +27,6 @@ router.get('/createproduct', (req, res) => {
 })
 
 
-<<<<<<< HEAD
 //FUNKAR INTE VVVV
 router.post('/createproduct', async (req, res) => {
     const apartment = new ProductModel({
@@ -44,8 +43,6 @@ router.post('/createproduct', async (req, res) => {
 //FUNKAR INTE ^^^^
 
 
-=======
->>>>>>> cc5d38e47c911a1cc627f5004c6169d05eef57af
 router.get('/contact', (req, res) => {
     res.render('contact')
 })
@@ -58,13 +55,9 @@ router.get('/my-pages', (req, res) => {
 router.get('/product', async (req, res) => {
     const Items = await ProductModel.find();
 
-<<<<<<< HEAD
     res.render('product', {
         Items
     })
-=======
-    res.render('product', { Items })
->>>>>>> cc5d38e47c911a1cc627f5004c6169d05eef57af
 })
 
 router.post("/product", async (req, res) => {
