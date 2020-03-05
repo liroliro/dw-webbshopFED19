@@ -33,9 +33,11 @@ router.post('/createproduct', async (req, res) => {
     const apartment = await new ProductModel({
         name: req.body.name,
         room: req.body.room,
-        price: req.body.price,
-        url: req.body.url
+        price: req.body.productPrice,
+        url: req.body.productUrl,
+        days: req.body.days
     })
+    console.log(apartment)
 
     apartment.save((error, success) => {
         if(error){
