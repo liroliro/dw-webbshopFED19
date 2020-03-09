@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const User = require('../model/user');
 
+const verifyToken = require ("./verifyToken")
+
 const bcrypt = require('bcryptjs');
 
 router.get('/register', async (req, res) => {
@@ -42,5 +44,11 @@ router.post('/login', async (req, res) => {
 		res.redirect('/register');
 	}
 });
+
+
+router.get("/logout", (req, res)=>{
+	
+	res.clearCookie("jsonwebtoken").redirect("/login")
+})
 
 module.exports = router;

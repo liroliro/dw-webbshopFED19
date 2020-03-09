@@ -4,12 +4,14 @@ const productRouter = require('./router/productRouter');
 const userRouter = require('./router/userRouter');
 const config = require('./config/config');
 const app = express();
+const cookieParser = require("cookie-parser");
 
 const path = require('path');
 
 //middleware
 
 app.use;
+app.use(cookieParser())
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'ejs');
