@@ -73,26 +73,23 @@ router.get('/product', async (req, res) => {
 
 	const Items = await ProductModel.find()
 		.skip(product_per_page * (page - 1)
-			.limit(product_per_page);
-
-
-
+			.limit(product_per_page)
 
 	res.render('product.ejs', {
-		Items,
-		//total produkter
-		countProduct,
-		//current page
-		currentPage: page,
-		//om det finns en till sida. 
-		hasNextPage: product_per_page < page * product_per_page,
-		//has previous page
-		hasNextPage: page > 1,
-		//last page
-		lastPage: math.ceil(countProduct / product_per_page),
-		nextPage: page + 1,
-		previousPage: page - 1
-	});
+				Items,
+				//total produkter
+				countProduct,
+				//current page
+				currentPage: page,
+				//om det finns en till sida. 
+				hasNextPage: product_per_page < page * product_per_page,
+				//has previous page
+				hasNextPage: page > 1,
+				//last page
+				lastPage: math.ceil(countProduct / product_per_page),
+				nextPage: page + 1,
+				previousPage: page - 1
+			});
 
 });
 
