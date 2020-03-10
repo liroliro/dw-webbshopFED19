@@ -2,11 +2,16 @@
 <%- include("menu.ejs")%>
 <form action="/createproduct" method="POST">
 
-    <input type="text" name="name" id="name" placeholder="Text">
+    <input type="text" name="header" id="header" placeholder="header">
+    <input type="text" name="smallheader" id="smallheader" placeholder="smallheader">
+    <input type="text" name="description" id="description" placeholder="description">
     <input type="text" name="room" id="room" placeholder="Room">
     <input type="text" name="productPrice" id="price" placeholder="Price">
-    <input type="text" name="productUrl" id="url" placeholder="Url">
     <input type="text" name="days" id="Days" placeholder="Days">
+    <input type="text" name="productUrl1" id="url" placeholder="Main img">
+    <input type="text" name="productUrl2" id="url" placeholder="Inside image">
+    <input type="text" name="productUrl3" id="url" placeholder="surroundings">
+
 
 
     <input type="submit" id="btncreateproduct" value="create">

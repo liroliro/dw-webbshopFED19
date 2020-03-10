@@ -3,7 +3,13 @@ const mongoose = require('mongoose');
 
 const productSchema = new mongoose.Schema(
 	{
-	name: {
+	header: {
+		type: String,
+	},
+	smallheader: {
+		type: String,
+	},
+	descriptions: {
 		type: String,
 	},
 	room: {
@@ -15,7 +21,13 @@ const productSchema = new mongoose.Schema(
 	days: {
 		type: Number,
 	},
-	url: {
+	url1: {
+		type: String,
+	},
+	url2: {
+		type: String,
+	},
+	url3: {
 		type: String,
 	}
 });
