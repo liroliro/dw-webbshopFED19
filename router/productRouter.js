@@ -1,6 +1,7 @@
 const express = require('express');
 const ProductModel = require('../model/product');
 const router = express.Router();
+const mongoose = require("mongoose")
 
 router.get('/', (req, res) => {
 	let pagination = req.query.page;
@@ -19,15 +20,61 @@ router.get('/checkout', (req, res) => {
 	res.render('checkout');
 });
 
-router.get('/createproduct', (req, res) => {
-	const apartment = ProductModel;
-	res.render('createproduct', {
-		apartment
-	});
+let newapartment;
+
+router.post("/createproduct", async (req, res) => {
+
+	newapartment = new ProductModel({
+		header: req.body.header,
+		smallheader: req.body.smallheader,
+		descriptions: req.body.descriptions,
+		room: req.body.room,
+		productprice: req.body.productprice,
+		days: req.body.days,
+		url1: req.body.url1,
+		url2: req.body.url2,
+		url3: req.body.url3
+	}).save();
+
+	//const response = await newapartment.save();
+	res.redirect("/createproduct")
+})
+
+
+router.get('/createproduct', async (req, res) => {
+
+	const product_per_page = 4;
+	const page = +req.query.page; //number(req.query.page)
+	//räknar total antal produkter
+	const countProduct = ProductModel.find().countDocuments();
+
+	const products = await ProductModel.find()
+		.skip(product_per_page * (page - 1))
+		.limit(product_per_page)
+
+	res.render('createproduct.ejs', {
+		products,
+		//total produkter
+		countProduct,
+		//current page
+		currentPage: page,
+		//om det finns en till sida. 
+		hasNextPage: product_per_page < page * product_per_page,
+		//has previous page
+		hasPreviousPage: page > 1,
+		nextPage: page + 1,
+		previousPage: page - 1,
+
+		//last page
+		lastPage: Math.ceil(countProduct / product_per_page),
+
+
+	})
 });
 
+
 //FUNKAR INTE VVVV
-router.post('/createproduct', async (req, res) => {
+/* router.post('/createproduct', async (req, res) => {
 	console.log(
 		req.body.name +
 		' ' +
@@ -53,7 +100,7 @@ router.post('/createproduct', async (req, res) => {
 			res.render('createproduct');
 		}
 	});
-});
+}); */
 //FUNKAR INTE ^^^^
 
 router.get('/contact', (req, res) => {
@@ -69,31 +116,34 @@ router.get('/product', async (req, res) => {
 	const product_per_page = 4;
 	const page = +req.query.page; //number(req.query.page)
 	//räknar total antal produkter
-	const countProduct = Items.find().countDocuments();
+	const countProduct = ProductModel.find().countDocuments();
 
-	const Items = await ProductModel.find()
-		.skip(product_per_page * (page - 1)
-			.limit(product_per_page)
+	const products = await ProductModel.find()
+		.skip(product_per_page * (page - 1))
+		.limit(product_per_page)
 
 	res.render('product.ejs', {
-				Items,
-				//total produkter
-				countProduct,
-				//current page
-				currentPage: page,
-				//om det finns en till sida. 
-				hasNextPage: product_per_page < page * product_per_page,
-				//has previous page
-				hasNextPage: page > 1,
-				//last page
-				lastPage: math.ceil(countProduct / product_per_page),
-				nextPage: page + 1,
-				previousPage: page - 1
-			});
+		products,
+		//total produkter
+		countProduct,
+		//current page
+		currentPage: page,
+		//om det finns en till sida. 
+		hasNextPage: product_per_page < page * product_per_page,
+		//has previous page
+		hasPreviousPage: page > 1,
+		nextPage: page + 1,
+		previousPage: page - 1,
+
+		//last page
+		lastPage: Math.ceil(countProduct / product_per_page),
+
+
+	})
 
 });
 
-router.post('/product', async (req, res) => {
+/* router.post('/product', async (req, res) => {
 	const newApartment = new ProductModel({
 		name: req.body.name,
 		room: req.body.room,
@@ -104,6 +154,6 @@ router.post('/product', async (req, res) => {
 	await newApartment.save((err, suc) => {
 		err ? res.send(err.message) : res.redirect('/product');
 	});
-});
-
+}); */
+console.log(newapartment);
 module.exports = router;

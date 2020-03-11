@@ -1,25 +1,31 @@
 <%- include("header.ejs")%>
+<%- include("menu.ejs") %>
 
 <body>
     <div class='productList'>
-        <%= Items.forEach((product) => { %>
+        <% products.forEach(product => { %>
+
         <div class='productItem'>
-            <!-- <img src="<%= product.image %>" alt="Product-image"> -->
-            <p class='product__name'><%= product.name %></p>
-            <p class='product__info'><%= product.room %></p>
-            <p class='product__price'><%= product.price %></p>
-            <p class='product__url'><%= product.url %></p>
+            <p class='product__name'><%= product.header %></p>
+            <p class='product__info'><%= product.smallheader %></p>
+            <p class='product__price'><%= product.descriptions %></p>
+            <p class='product__url'><%= product.room %></p>
+            <p class='product__url'><%= product.price %></p>
+            <p class='product__url'><%= product.days %></p>
+            <p class='product__url'><%= product.url1 %></p>
+            <p class='product__url'><%= product.url2 %></p>
+            <p class='product__url'><%= product.url3 %></p>
         </div>
         <% }) %>
     </div>
+    <p> hej hej hej </p>
 
-
-     <!-- PAGINATION- EJ FUNGERNADE  -->
+    <!-- PAGINATION- EJ FUNGERNADE ÄN  -->
     <% if(products.length >=1 ){ %>
     <div class="pagination">
 
-        <% if(currentPage !==1 && previousPage ! ==1){ %>
-        <a href="/product/?page=<%=page%>"><%=page%></a>
+        <% if(currentPage !==1 && previousPage !==1){ %>
+        <a href="/product/?page=<%=page=1%>">1</a>
         <% } %>
 
         <% if (hasPreviousPage) { %>
@@ -27,18 +33,18 @@
         <% } %>
 
         <% if(hasNextPage) { %>
-        <a href="/product/?page=<%=nextPage%>"><%nextPage%></a>
+        <a href="/product/?page=<%=nextPage %>"><%nextPage%></a>
         <% } %>
 
         <% if(currentPage) { %>
         <a href="/product/?page=%=currentPage%>"><%=currentPage%></a>
         <% } %>
 
-        <% if(lastPage !===currentPage && nextPage !==lastPage) { %>
+        <% if(lastPage !==currentPage && nextPage !==lastPage) { %>
 
         <% } %>
 
-        <% if(lastPage !== currentPage && !== nextPage ) { %>
+        <% if(lastPage !== currentPage && nextPage !== lastPage ) { %>
         <a href="/product/?page=<%=lastPage%>"><%=lastPage%></a>
         <% } %>
     </div>

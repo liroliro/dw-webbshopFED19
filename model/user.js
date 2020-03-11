@@ -8,7 +8,9 @@ const userSchema = {
 	password: {
 		type: String,
 		required: true
-	}
+	},
+	resetToken: String,
+	expirationToken: Date
 };
 const User = mongoose.model('User', userSchema);
 
