@@ -72,37 +72,6 @@ router.get('/createproduct', async (req, res) => {
 	})
 });
 
-
-//FUNKAR INTE VVVV
-/* router.post('/createproduct', async (req, res) => {
-	console.log(
-		req.body.name +
-		' ' +
-		req.body.room +
-		' ' +
-		req.body.price +
-		' ' +
-		req.body.url
-	);
-	const apartment = await new ProductModel({
-		name: req.body.name,
-		room: req.body.room,
-		price: req.body.productPrice,
-		url: req.body.productUrl,
-		days: req.body.days
-	});
-	console.log(apartment);
-
-	apartment.save((error, success) => {
-		if (error) {
-			res.send(error._message);
-		} else {
-			res.render('createproduct');
-		}
-	});
-}); */
-//FUNKAR INTE ^^^^
-
 router.get('/contact', (req, res) => {
 	res.render('contact');
 });

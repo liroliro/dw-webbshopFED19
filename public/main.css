@@ -95,9 +95,6 @@ h1 {
 	
 }
 
-
-
-
 h2 {
     font-size: 3em;
     margin-bottom: 15px;
@@ -181,4 +178,40 @@ input[type=range]:active + output {
 .fa-shopping-cart {
   color: black;
   
+}
+
+.productItem {
+  position: relative;
+  justify-content: center;
+  
+  border: 1px solid black;
+  margin: 0 auto;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  width: 85%;
+}
+
+/* On screens that are 992px or less, set the background color to blue */
+@media screen and (min-width: 600px) {
+  .productList {
+    text-align: center;
+  }
+  .productItem {
+   /*  position: relative;
+    justify-content: left; */
+    display: inline-flex;
+    border: 1px solid black;
+    margin: 0 auto;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 45%;
+  }
+}
+
+/* On screens that are 600px or less, set the background color to olive */
+@media screen and (min-width: 992px) {
+  .productItem {
+ 
+     width: 31%;
+   }
 }

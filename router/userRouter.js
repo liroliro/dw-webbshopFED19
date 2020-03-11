@@ -7,7 +7,7 @@ const verifyToken = require("./verifyToken");
 const config = require("../config/config");
 const nodemailer = require("nodemailer");
 const sendGridTransport = require("nodemailer-sendgrid-transport");
-
+const crypto = require("crypto");
 const transport = nodemailer.createTransport(sendGridTransport({
 	auth: {
 		api_key: config.mail
@@ -99,8 +99,15 @@ router.post("/reset", async (req, res) => {
 	const existUser = await User.findOne({ email: req.body.resetMail })
 	if (!existUser) return res.redirect("/signup");
 
-	existUser.resetToken =
+	crypto.randomBytes(32, async (err, token) => {
+		if (err) return res.redirect("/login");
+		const resetToken = token.toString("hex");
+
+		existUser.resetToken = resetToken;
 		existUser.expirationToken = Date.now() + 1000000;
+		await existUser.save();
+	})
+	res.send(existUser);
 })
 
 module.exports = router;
