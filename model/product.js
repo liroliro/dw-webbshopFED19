@@ -15,7 +15,7 @@ const productSchema = new mongoose.Schema(
 	room: {
 		type: Number,
 	},
-	price: {
+	productprice: {
 		type: Number,
 	},
 	days: {
