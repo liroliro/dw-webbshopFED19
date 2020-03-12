@@ -8,10 +8,11 @@ const Admin = require("../models/Admin");
 
 module.exports = function(passport) {
     passport.use(
-        new LocalStrategy({ nameField: "employeeId"}, (employeeId, password, done)=>{
-            //Match Admin
-            Admin.findOne({ employeeId: employeeId })
-                .then(admin => {
+        new LocalStrategy({ usernameField: "employeeId"}, (employeeId, password, done)=> {
+            //Match admin
+            Admin.findOne({ 
+                employeeId: employeeId
+             }).then(admin => {
                     if(!admin) {  //1.04:39
                         return done(null, false, { message: "This employee id is not registered"});
                     } 
@@ -19,15 +20,14 @@ module.exports = function(passport) {
                     //Match password
                     bcrypt.compare(password, admin.password, (err, isMatch) => {
                         if(err) throw err;  
-
                         if(isMatch) {
                             return done(null, admin);
                         } else {
                             return done(null, false, { message: "Password incorrect" });
                         }
                     });
-                })
-                .catch(err => console.log(err));
+                });
+                // .catch(err => console.log(err));
         })
     );
 
@@ -41,4 +41,4 @@ module.exports = function(passport) {
         });
     });
 
-}
+};

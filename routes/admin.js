@@ -8,13 +8,14 @@ const { ensureAuthenticated } = require("../config/auth");
 
 // Admin model 
 const Admin = require("../models/Admin");
+const { forwardAuthenticated } = require('../config/auth');
 
 // Login page
-router.get("/login", (req, res) => res.render("login"));
+router.get("/login", (req, res) => res.render("login"));    //forwardAuthenticated,
 
 
 // Register page
-router.get("/register",  (req, res) => res.render("register"));     //ensureAuthenticated,
+router.get("/register", (req, res) => res.render("register"));     //ensureAuthenticated,
 
 
 
@@ -65,7 +66,7 @@ if(errors.length > 0) {
 
                     });
                     // Hash password
-                    bcrypt.genSalt(10, (err, salt)=> 
+                    bcrypt.genSalt(10, (err, salt)=> {
                         bcrypt.hash(newAdmin.password, salt, (err, hash) => {
                             if(err) throw err;
 
@@ -73,21 +74,22 @@ if(errors.length > 0) {
                             newAdmin.password = hash;
                             // Save admin in mongoDB
                             newAdmin.save()
-                                .then(admin =>{             //ÄR DETTA FELET?
-                                    //req.flash("success_msg", "You are now registered and can log in");
+                                .then(admin => {             //ÄR DETTA FELET?
+                                    req.flash(
+                                        "success_msg",
+                                        "You are now registered and can log in"
+                                        );
                                     res.redirect("/admin/login");
-
                                 })
                                 .catch(err => console.log(err));
 
-                    }))
+                    });
 
-                    // console.log(newAdmin)
-                    // res.send("Hello adminpage");
-                }
-            });
+                });
+            }
+    });
+
     }
-
 }); 
 
 //Login handle
@@ -104,7 +106,7 @@ router.post("/login", (req, res, next) => {
 //Logout handel 
 router.get("/logout", (req, res) => {
     req.logout();
-    //req.flash("success_msg", "You are logged out");
+    req.flash("success_msg", "You are logged out");
     res.redirect("/admin/login");
 });
  
