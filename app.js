@@ -11,18 +11,22 @@ const app = express();
 require("./config/passport")(passport);
 
 //DB config
-const db = require("./config/config").databaseURL; 
+const db = require("./config/config").databaseURL;
 
 // Connect to Mongo 
-mongoose.connect(db, { useNewUrlParser: true })
+mongoose.connect(db, {
+        useNewUrlParser: true
+    })
     .then(() => console.log("MongoDB Connected..."))
     .catch(err => console.log(err));
 // EJS 
-app.use(expressLayouts);            //Denna över
-app.set("view engine", "ejs");      //Denna under
+app.use(expressLayouts); //Denna över
+app.set("view engine", "ejs"); //Denna under
 
 // bodyparser
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({
+    extended: false
+}));
 
 // Express session 
 app.use(session({
