@@ -1,0 +1,39 @@
+<%- include("header.ejs")%>
+<%- include("menu.ejs")%>
+<form action="/createproduct" method="Post">
+
+    <input type="text" name="header" id="header" placeholder="header">
+    <input type="text" name="smallheader" id="smallheader" placeholder="smallheader">
+    <input type="text" name="descriptions" id="description" placeholder="description">
+    <input type="text" name="room" id="room" placeholder="Room">
+    <input type="text" name="productprice" id="price" placeholder="Price">
+    <input type="text" name="days" id="days" placeholder="Days">
+    <input type="text" name="url1" id="url1" placeholder="Main img">
+    <input type="text" name="url2" id="url2" placeholder="Inside image">
+    <input type="text" name="url3" id="url3" placeholder="surroundings">
+
+
+
+    <input type="submit" id="btncreateproduct" value="create">
+
+</form>
+
+<div class='productList'>
+    <% products.forEach(product => { %>
+
+    <div class='productItem'>
+        <p class='product__name'><%= product.header %></p>
+        <p class='product__info'><%= product.smallheader %></p>
+        <p class='product__price'><%= product.descriptions %></p>
+        <p class='product__url'><%= product.room %></p>
+        <p class='product__url'><%= product.price %></p>
+        <p class='product__url'><%= product.days %></p>
+        <p class='product__url'><%= product.url1 %></p>
+        <p class='product__url'><%= product.url2 %></p>
+        <p class='product__url'><%= product.url3 %></p>
+    </div>
+    <% }) %>
+</div>
+
+
+<%- include("footer.ejs")%>

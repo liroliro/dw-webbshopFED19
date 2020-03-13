@@ -1,0 +1,15 @@
+<%- include("header.ejs")%> <%- include('menu.ejs') %>
+<body>
+	<form action="/login" method="POST">
+		<input type="text" name="loginEmail" placeholder="Input email" />
+		<input type="password" name="loginPassword" placeholder="Input password" />
+		<button type="submit">Log in</button>
+	</form>
+
+	<p>
+		Or if you want to register click
+		<a href="/register">here</a>
+		<a href="/reset">New password</a>
+	</p>
+</body>
+<%- include ('footer.ejs') %>

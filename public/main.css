@@ -1,0 +1,184 @@
+/* Basic CSS-grid layout, for footerfooterIcon */
+.footerContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.footerIcon, .footerMenu, .footerContact {
+  display: grid;
+  grid-column-end: span 1;
+}
+
+.footerMenuList, .contactList {
+  list-style: none;
+}
+
+
+.nav {
+    background: white;
+	position: sticky;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: 60px;
+	top: 0;
+}
+
+.nav__title {
+    font-size: 1.25em;
+    margin: 0px 30px;
+}
+
+.nav__item {
+    display: inline-block;
+		margin: 0px 30px;
+}
+
+.hero {
+    background: url("https://media.equityapartments.com/images/q_50/f_auto/fl_lossy/2763-12/parc-east-apartments-view");
+	display: grid;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+		
+}
+
+.section {
+	max-width: 900px;
+	margin: 60px auto;
+    padding: 90px 30px;
+	background-color: lightgray;
+	text-align: center;
+}
+
+.subnav {
+	position: sticky;
+	bottom: 0;
+	top: 60px;
+}
+
+.subnav__container {
+    align-items: baseline;
+    justify-content: space-between;
+    display: flex;
+    margin: 0 60px;
+    padding: 15px 0;
+}
+
+.subnav__title {
+    font-size: 1.25em;
+}
+
+.subnav__list {
+    margin: 0 15px;
+}
+
+.subnav__item {
+    
+    display: inline-block;
+    margin: 0px 30px;
+    padding: 5px;
+}
+
+
+
+
+h1 {
+    font-size: 6em;
+    margin: 0 90px;
+    text-align: center;
+}
+
+.subnav {
+	background: #fff;
+	border-bottom: 1px solid #222;
+	
+}
+
+
+
+
+h2 {
+    font-size: 3em;
+    margin-bottom: 15px;
+}
+p {
+    line-height: 1.625em;
+    margin: 0 auto;
+    max-width: 480px;
+}
+
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: Arial, sans-serif;
+}
+
+form {
+  width: 200px;
+  padding-top: 100px;
+  margin: 0 auto;
+}
+
+.range-control {
+  position: relative;
+}
+
+input[type=range] {
+  display: block;
+  width: 100%;
+  margin: 0;
+  -webkit-appearance: none;
+  outline: none;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+  position: relative;
+  height: 12px;
+  border: 1px solid #b2b2b2;
+  border-radius: 5px;
+  background-color: #e2e2e2;
+  box-shadow: inset 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+}
+
+input[type=range]::-webkit-slider-thumb {
+  position: relative;
+  top: -5px;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #999;
+  -webkit-appearance: none;
+  background-color: #fff;
+  box-shadow: inset 0 -1px 2px 0 rgba(0, 0, 0, 0.25);
+  border-radius: 100%;
+  cursor: pointer;
+}
+
+output {
+  position: absolute;
+  top: -32px;
+  display: none;
+  width: 50px;
+  height: 24px;
+  border: 1px solid #e2e2e2;
+  background-color: #fff;
+  border-radius: 3px;
+  color: #777;
+  font-size: .8em;
+  line-height: 24px;
+  text-align: center;
+}
+
+input[type=range]:active + output {
+  display: block;
+  transform: translateX(-50%);
+}
+.fa-shopping-cart {
+  color: black;
+  
+}

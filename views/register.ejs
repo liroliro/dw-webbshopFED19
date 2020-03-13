@@ -1,0 +1,9 @@
+<%- include("header.ejs")%> <%- include('menu.ejs') %>
+<body>
+	<form action="/register" method="POST">
+		<input type="email" name="email" placeholder="email" />
+		<input type="password" name="password" placeholder="password" />
+		<button type="submit">Sign up</button>
+	</form>
+</body>
+<%- include("footer.ejs") %>

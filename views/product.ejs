@@ -1,0 +1,41 @@
+<%- include("header.ejs")%> <%- include("menu.ejs") %>
+
+<body>
+	<div class="productList">
+		<% products.forEach(product => { %>
+
+		<div class="productItem">
+			<p class="product__name"><%= product.header %></p>
+			<p class="product__info"><%= product.smallheader %></p>
+			<p class="product__price"><%= product.descriptions %></p>
+			<p class="product__url"><%= product.room %></p>
+			<p class="product__url"><%= product.price %></p>
+			<p class="product__url"><%= product.days %></p>
+			<p class="product__url"><%= product.url1 %></p>
+			<p class="product__url"><%= product.url2 %></p>
+			<p class="product__url"><%= product.url3 %></p>
+		</div>
+		<% }) %>
+	</div>
+	<p>hej hej hej</p>
+
+	<!-- PAGINATION- EJ FUNGERNADE ÄN  -->
+	<% if(products.length >=1 ){ %>
+	<div class="pagination">
+		<% if(currentPage !==1 && previousPage !==1){ %>
+		<a href="/product/?page=<%=page=1%>">1</a>
+		<% } %> <% if (hasPreviousPage) { %>
+		<a href="/product/?page=<%= prevoiusPage%>"><%= prevoiusPage %></a>
+		<% } %> <% if(hasNextPage) { %>
+		<a href="/product/?page=<%=nextPage %>"><%nextPage%></a>
+		<% } %> <% if(currentPage) { %>
+		<a href="/product/?page=%=currentPage%>"><%=currentPage%></a>
+		<% } %> <% if(lastPage !==currentPage && nextPage !==lastPage) { %> <% } %>
+		<% if(lastPage !== currentPage && nextPage !== lastPage ) { %>
+		<a href="/product/?page=<%=lastPage%>"><%=lastPage%></a>
+		<% } %>
+	</div>
+	<% }%>
+</body>
+
+<%- include("productFooter.ejs")%>
