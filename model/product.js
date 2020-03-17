@@ -1,34 +1,35 @@
 const mongoose = require('mongoose');
 
-
-const productSchema = new mongoose.Schema(
-	{
+const productSchema = new mongoose.Schema({
 	header: {
-		type: String,
+		type: String
 	},
 	smallheader: {
-		type: String,
+		type: String
 	},
 	descriptions: {
-		type: String,
+		type: String
 	},
 	room: {
-		type: Number,
+		type: Number
 	},
 	productprice: {
-		type: Number,
+		type: Number
 	},
 	days: {
-		type: Number,
+		type: Number
 	},
 	url1: {
-		type: String,
+		type: String
 	},
 	url2: {
-		type: String,
+		type: String
 	},
 	url3: {
-		type: String,
+		type: String
+	},
+	user: {
+		productId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 	}
 });
 
