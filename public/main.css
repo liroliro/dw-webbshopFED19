@@ -4,108 +4,99 @@
   grid-template-columns: 1fr 1fr 1fr;
 }
 
-.footerIcon, .footerMenu, .footerContact {
+.footerIcon,
+.footerMenu,
+.footerContact {
   display: grid;
   grid-column-end: span 1;
 }
 
-.footerMenuList, .contactList {
+.footerMenuList,
+.contactList {
   list-style: none;
 }
 
 
 .nav {
-    background: white;
-	position: sticky;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	height: 60px;
-	top: 0;
+  background: white;
+  position: sticky;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  top: 0;
 }
 
 .nav__title {
-    font-size: 1.25em;
-    margin: 0px 30px;
+  font-size: 1.25em;
+  margin: 0px 30px;
 }
 
 .nav__item {
-    display: inline-block;
-		margin: 0px 30px;
-}
-
-.hero {
-    background: url("https://media.equityapartments.com/images/q_50/f_auto/fl_lossy/2763-12/parc-east-apartments-view");
-	display: grid;
-	justify-content: center;
-	align-items: center;
-	min-height: 100vh;
-		
+  display: inline-block;
+  margin: 0px 30px;
 }
 
 .section {
-	max-width: 900px;
-	margin: 60px auto;
-    padding: 90px 30px;
-	background-color: lightgray;
-	text-align: center;
+  max-width: 900px;
+  padding: 90px 30px;
+  background-color: lightgray;
+  text-align: center;
 }
 
 .subnav {
-	position: sticky;
-	bottom: 0;
-	top: 60px;
+  position: sticky;
+  bottom: 0;
+  top: 60px;
 }
 
 .subnav__container {
-    align-items: baseline;
-    justify-content: space-between;
-    display: flex;
-    margin: 0 60px;
-    padding: 15px 0;
+  align-items: baseline;
+  justify-content: space-between;
+  display: flex;
+  margin: 0 60px;
+  padding: 15px 0;
 }
 
 .subnav__title {
-    font-size: 1.25em;
+  font-size: 1.25em;
 }
 
 .subnav__list {
-    margin: 0 15px;
+  margin: 0 15px;
 }
 
 .subnav__item {
-    
-    display: inline-block;
-    margin: 0px 30px;
-    padding: 5px;
+
+  display: inline-block;
+  margin: 0px 30px;
+  padding: 5px;
 }
 
 
 
 
 h1 {
-    font-size: 6em;
-    margin: 0 90px;
-    text-align: center;
+  font-size: 6em;
+  margin: 0 90px;
+  text-align: center;
 }
 
 .subnav {
-	background: #fff;
-	border-bottom: 1px solid #222;
-	
+  background: #fff;
+  border-bottom: 1px solid #222;
+
 }
-
-
-
 
 h2 {
-    font-size: 3em;
-    margin-bottom: 15px;
+  font-size: 3em;
+  margin-bottom: 15px;
 }
+
 p {
-    line-height: 1.625em;
-    margin: 0 auto;
-    max-width: 480px;
+  line-height: 1.625em;
+  margin: 0 auto;
+  max-width: 480px;
 }
 
 
@@ -174,11 +165,87 @@ output {
   text-align: center;
 }
 
-input[type=range]:active + output {
+input[type=range]:active+output {
   display: block;
   transform: translateX(-50%);
 }
+
 .fa-shopping-cart {
   color: black;
-  
+
+}
+
+/*///////////////////////////////////////////////// 
+        HEADER 
+/////////////////////////////////////////////////*/
+#header {
+  height: 375px;
+  transform: rotate(-180deg);
+  background-image: url('/static/images/manhattan-skyline.jpg');
+}
+
+/*///////////////////////////////////////////////// 
+        SIDENAV
+/////////////////////////////////////////////////*/
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #38D0AB;
+  opacity: 0.95;
+  overflow-x: hidden;
+  padding-top: 60px;
+  transition: 0.3s;
+}
+
+.closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 56px;
+  margin-left: 50px;
+}
+
+.sidenav, a:hover {
+  color: #6e6e6e;
+  text-decoration: none;
+}
+ 
+.nav__list {
+  margin-top: 100px;
+}
+
+/*///////////////////////////////////////////////// 
+        MENU
+/////////////////////////////////////////////////*/
+#menu-bar {
+  height: 45px;
+  background-color: #000;
+  line-height: 45px;
+}
+
+.sidenav, a {
+  text-decoration: none;
+  font-size: 25px;
+  color: #fff;
+  display: block;
+  transition: 0.3s;
+  margin-bottom: 25px;
+}
+
+#menu-button {
+  font-family: monospace;
+  letter-spacing: 3px;
+  font-size: 18px;
+  color: #fff;
+  margin-left: 25px;
+}
+
+#menu-button:hover {
+  cursor: pointer;
+  color: #38D0AB;
+  transition: 0.3s;
 }
