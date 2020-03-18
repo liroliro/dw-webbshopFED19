@@ -1,4 +1,3 @@
-<%- include("header.ejs")%>
 <div class="subnav">
 	<div class="subnav__container">
 		<div class="subnav__title">
@@ -7,14 +6,7 @@
 		<ul class="subnav__list">
 			<form>
 				<div class="range-control">
-					<input
-						id="inputRange"
-						type="range"
-						min="1"
-						max="12"
-						step="1"
-						data-thumbwidth="6"
-					/>
+					<input id="inputRange" type="range" min="1" max="12" step="1" data-thumbwidth="6" />
 					<output name="rangeVal">6</output>
 				</div>
 			</form>
@@ -28,7 +20,7 @@
 </div>
 
 <script>
-	$('input[type="range"]').on('input', function() {
+	$('input[type="range"]').on('input', function () {
 		var control = $(this),
 			controlMin = control.attr('min'),
 			controlMax = control.attr('max'),

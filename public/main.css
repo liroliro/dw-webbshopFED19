@@ -249,3 +249,46 @@ input[type=range]:active+output {
   color: #38D0AB;
   transition: 0.3s;
 }
+
+/*///////////////////////////////////////////////// 
+        PRODUCT/Productside
+/////////////////////////////////////////////////*/
+.productItem {
+  display: flex;
+  position: relative;
+  border: solid black 2px;
+  margin: 10px;
+  min-height: 50px;
+}
+
+.lghInfoDiv {
+  padding-left: 5px;
+  width: 50%;
+}
+.lghUxDiv {
+width: 10%;
+}
+.fa-heart {
+color: rgb(180, 15, 15);
+}
+.product__name {
+  font-size: 1.5em;
+}
+.product__info {
+  font-size: 0.9em;
+  padding-left: 7px;
+  top: 0;
+}
+.product__desc {
+  font-style: italic;
+}
+.lghphotoDiv {
+  width: 40%;
+  display: inline-block;
+  overflow: hidden;
+  object-fit: contain;
+  max-height: 50px:
+}
+.productPhoto {
+  width: 100%
+}

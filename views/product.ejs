@@ -1,4 +1,4 @@
-<%- include("header.ejs")%> 
+<%- include("header.ejs")%>
 <%- include("menu.ejs") %>
 
 <body>
@@ -6,17 +6,24 @@
 		<% products.forEach(product => { %>
 
 		<div class="productItem">
-			<p class="product__name"><%= product.header %></p>
-			<p class="product__info"><%= product.smallheader %></p>
-			<p class="product__price"><%= product.descriptions %></p>
-			<p class="product__url"><%= product.room %></p>
-			<p class="product__url"><%= product.price %></p>
-			<p class="product__url"><%= product.days %></p>
-			<p class="product__url"><%= product.url1 %></p>
-			<p class="product__url"><%= product.url2 %></p>
-			<p class="product__url"><%= product.url3 %></p>
-			<a href="/wishlist/<%= product._id %>">Add to wishlist</a>
-			<a href="/addToCart/<%= product._id %>">Add to cart</a>
+			<div class="lghphotoDiv">
+				<img class="productPhoto" src="<%= product.url1 %>">
+				<img class="productPhoto" src="<%= product.url2 %>">
+				<img class="productPhoto" src="<%= product.url3 %>">
+
+			</div>
+			<div class="lghInfoDiv">
+				<p class="product__name"><%= product.header %></p>
+				<p class="product__info"><%= product.smallheader %></p>
+				<p class="product__desc"><%= product.descriptions %></p>
+				<p class="product__url"><%= product.room %></p>
+				<p class="product__url"><%= product.price %></p>
+				<p class="product__url"><%= product.days %></p>
+			</div>
+			<div class="lghUxDiv">
+				<a href="/wishlist/<%= product._id %>"><i class="fa fa-heart"></i></a>
+				<a href="/addToCart/<%= product._id %>"><i class="fa fa-shopping-cart"></i></a>
+			</div>
 		</div>
 		<% }) %>
 	</div>
