@@ -16,11 +16,25 @@ const userSchema = new Schema({
 		{
 			productId: { type: mongoose.Schema.Types.ObjectId, ref: 'Product' }
 		}
+	],
+	cart: [
+		{
+			productId: { type: mongoose.Schema.Types.ObjectId, ref: 'Product' },
+			quantity: {
+				type: Number,
+				require: true
+			}
+		}
 	]
 });
 
 userSchema.methods.addToWishlist = function(product) {
 	this.wishlist.push({ productId: product._id });
+	return this.save();
+};
+
+userSchema.methods.addToCart = function(product) {
+	this.cart.push({ productId: product._id });
 	return this.save();
 };
 

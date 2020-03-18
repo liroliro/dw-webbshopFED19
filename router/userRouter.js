@@ -57,27 +57,18 @@ router.post('/login', async (req, res) => {
 	// Jämför information från databas till input
 	const validUser = await bcrypt.compare(req.body.loginPassword, user.password);
 
-	if (validUser) {
-		const user = await User.find({ email: req.body.loginEmail });
-		res.render('userprofile', { user });
-	} else {
-		res.redirect('/register');
-	}
+	if (!validUser) return res.redirect('/register');
 
-	jwt.sign({ user }, 'secretkey', (err, token) => {
+	jwt.sign({ user }, 'secretKey', (err, token) => {
 		if (err) res.redirect('/login');
-		//console.log(token)
+
 		if (token) {
-			//Use localstorage
-			//console.log("hej")
-			// const cookie = req.cookies.jwtToken;
 			const cookie = req.cookies.jsonwebtoken;
 			if (!cookie) {
-				//res.header("auth")
 				res.cookie('jsonwebtoken', token, { maxAge: 3600000, httpOnly: true });
 			}
-
-			res.render('userProfile', { user });
+			// console.log(user);
+			res.render('userprofile', { user });
 		}
 		res.redirect('/login');
 	});
@@ -138,14 +129,49 @@ router.post('/reset/:token', async (req, res) => {
 	res.redirect('/login');
 });
 
-router.get('/wishlist/:id', async (req, res) => {
+router.get('/wishlist/:id', verifyToken, async (req, res) => {
 	const product = await Product.findOne({ _id: req.params.id });
-	const user = await User.findOne({ _id: '5e68cf2e94a6fb38f4adaded' });
+	console.log(req.body);
+	const user = await User.findOne({ _id: req.body.user._id });
 
 	await user.addToWishlist(product);
-	console.log(user);
 
 	res.send('Wishlisted');
+});
+
+router.get('/addToCart/:id', verifyToken, async (req, res) => {
+	const user = await User.findOne({ _id: req.body.user._id });
+	await user.addToCart({ _id: req.params.id });
+
+	res.redirect('/cart');
+});
+
+router.get('/cart', verifyToken, async (req, res) => {
+	const user = await User.findOne({ _id: req.body.user._id });
+	const products = [];
+	for (let i = 0; i < user.cart.length; i++) {
+		const product = await Product.findOne(user.cart[i].productId);
+
+		products.push(product);
+	}
+
+	res.render('cart', { products });
+});
+
+router.get('/delete/:id', verifyToken, async (req, res) => {
+	const user = await User.findOne({
+		_id: req.body.user._id
+	});
+
+	user.cart.forEach((e, i) => {
+		if (e.productId == req.params.id) {
+			return user.cart.splice(i, 1);
+		}
+	});
+
+	await user.save();
+
+	res.redirect('/cart');
 });
 
 module.exports = router;
