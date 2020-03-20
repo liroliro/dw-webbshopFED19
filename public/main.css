@@ -342,35 +342,3 @@ color: rgb(180, 15, 15);
 }
 
 }
-
-/*///////////////////////////////////////////////// 
-        CAROUSEL
-/////////////////////////////////////////////////*/
-.carousel_slide{
-  height: 100%;
-  right: 0;
-  position: absolute;
-  display: none;
-  overflow-y: auto;
-  top: 0;
-  left: 0;
-}
-.carousel_activator:nth-of-type(1):checked ~ .carousel_slide:nth-of-type(1){
-display: block;
-animation: showSlide 0.5s;
-}
-.carousel_activator:nth-of-type(1):checked ~ .carousel_controls:nth-last-of-type(1){
-  display: block;
-}
-.carousel_track .carousel_slide:nth-of-type(1){
-  transform: translateX(0%);
-}
-.carousel_track .carousel_slide:nth-of-type(2){
-  transform: translateX(100%);
-}
-.carousel_track .carousel_slide:nth-of-type(3){
-  transform: translateX(200%);
-}
-.carousel_track {
-  transition: transform .5s ease 0s;
-}

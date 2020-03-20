@@ -7,52 +7,11 @@
 
 		<div class="productItem">
 			<div class="lghphotoDiv">
-
-				<ul class="carousel">
-					<input type="radio" id="1" name="activator" checked="checked" class="carousel_activator" />
-					<input type="radio" id="2" name="activator" class="carousel_activator" />
-					<input type="radio" id="3" name="activator" class="carousel_activator" />
-					<div class="carousel_controls">
-						<label for="2" class="carousel-control carousel_control_forward">
-						</label>
-						<label for="3" class="carousel-control carousel_control_backward">
-						</label>
-					</div>
-					<div class="carousel_controls">
-						<label for="3" class="carousel-control carousel_control_forward">
-						</label>
-						<label for="1" class="carousel-control carousel_control_backward">
-						</label>
-					</div>
-					<div class="carousel_controls">
-						<label for="1" class="carousel-control carousel_control_forward">
-						</label>
-						<label for="2" class="carousel-control carousel_control_backward">
-						</label>
-					</div>
-					<div class="carousel_track">
-					<li class="carousel_slide">
-						<h1>1</h1>
-					</li>
-					<li class="carousel_slide">
-						<h1>2</h1>
-					</li>
-					<li class="carousel_slide">
-						<h1>3</h1>
-					</li>
-				</div>
-					<div class="carousel_indicators">
-						<label for="1" class="carousel_indicator"></label>
-						<label for="2" class="carousel_indicator"></label>
-						<label for="3" class="carousel_indicator"></label>
-					</div>
-				</ul>
-
 				<img class="productPhoto" src="<%= product.url1 %>">
 				<img class="productPhoto" src="<%= product.url2 %>">
 				<img class="productPhoto" src="<%= product.url3 %>">
-
 			</div>
+
 			<div class="lghInfoDiv">
 				<p class="product__name"><%= product.header %></p>
 				<p class="product__info"><%= product.smallheader %></p>

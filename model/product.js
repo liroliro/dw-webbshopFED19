@@ -16,9 +16,6 @@ const productSchema = new mongoose.Schema({
 	productprice: {
 		type: Number
 	},
-	days: {
-		type: Number
-	},
 	url1: {
 		type: String
 	},
