@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
 const productSchema = new mongoose.Schema({
-	header: {
+	city: {
 		type: String
 	},
-	smallheader: {
+	street: {
 		type: String
 	},
 	descriptions: {
