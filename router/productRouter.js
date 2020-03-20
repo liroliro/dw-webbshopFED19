@@ -1,5 +1,6 @@
 const express = require('express');
 const ProductModel = require('../model/product');
+const BookingModel = require('../model/booking');
 const router = express.Router();
 const mongoose = require('mongoose');
 
@@ -20,12 +21,11 @@ let newapartment;
 
 router.post('/createproduct', async (req, res) => {
 	newapartment = new ProductModel({
-		header: req.body.header,
-		smallheader: req.body.smallheader,
+		city: req.body.city,
+		street: req.body.street,
 		descriptions: req.body.descriptions,
 		room: req.body.room,
 		productprice: req.body.productprice,
-		days: req.body.days,
 		url1: req.body.url1,
 		url2: req.body.url2,
 		url3: req.body.url3,
@@ -37,7 +37,7 @@ router.post('/createproduct', async (req, res) => {
 });
 
 router.get('/createproduct', async (req, res) => {
-	const product_per_page = 4;
+	const product_per_page = 8;
 	const page = +req.query.page; //number(req.query.page)
 	//räknar total antal produkter
 	const countProduct = ProductModel.find().countDocuments();
@@ -74,7 +74,15 @@ router.get('/my-pages', (req, res) => {
 });
 
 router.get('/product', async (req, res) => {
-	const product_per_page = 4;
+	newBooking = new BookingModel({
+		/* ownerUserId: ,
+		locationId: , */
+		dateTimeFrom: req.body.dateTimeFrom,
+		dateTimeTo: req.body.dateTimeTo,
+		numberOfAttendees: req.body.numberOfAttendees
+	}).save();
+
+	const product_per_page = 8;
 	const page = +req.query.page; //number(req.query.page)
 	//räknar total antal produkter
 	const countProduct = ProductModel.find().countDocuments();

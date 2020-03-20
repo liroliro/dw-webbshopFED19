@@ -13,8 +13,8 @@
 			</div>
 
 			<div class="lghInfoDiv">
-				<p class="product__name"><%= product.header %></p>
-				<p class="product__info"><%= product.smallheader %></p>
+				<p class="product__name"><%= product.city %></p>
+				<p class="product__info"><%= product.street %></p>
 				<p class="product__desc"><%= product.descriptions %></p>
 				<p class="product__url"><%= product.room %></p>
 				<p class="product__url"><%= product.price %></p>
@@ -22,6 +22,15 @@
 			<div class="lghUxDiv">
 				<a href="/wishlist/<%= product._id %>"><i class="fa fa-heart"></i></a>
 				<a href="/addToCart/<%= product._id %>"><i class="fa fa-shopping-cart"></i></a>
+			</div>
+			<div class="bookingDiv">
+				<input type="date" name="dateTimeFrom" id="dateTimeFrom">
+				<input type="date" name="dateTimeTo" id="dateTimeTo">
+				<input type="number" name="numberOfAttendees" id="numberOfAttendees">
+ <!-- 
+				Koppla ihop bookingschema med user och product schema. 
+				Kolla upp hur datumen även mellan in & utcheckning också blir bokat/ej valbara.
+			 -->	
 			</div>
 		</div>
 		<% }) %>
