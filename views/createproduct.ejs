@@ -20,17 +20,29 @@
 
 <div class='productList'>
     <% products.forEach(product => { %>
+    <div class="productItem">
+        <div class="lghphotoDiv">
+            <img class="productPhoto" src="<%= product.url1 %>">
+            <img class="productPhoto" src="<%= product.url2 %>">
+            <img class="productPhoto" src="<%= product.url3 %>">
+        </div>
 
-    <div class='productItem'>
-        <p class='product__name'><%= product.city %></p>
-        <p class='product__info'><%= product.street %></p>
-        <p class='product__price'><%= product.descriptions %></p>
-        <p class='product__url'><%= product.room %></p>
-        <p class='product__url'><%= product.price %></p>
-        <p class='product__url'><%= product.days %></p>
-        <p class='product__url'><%= product.url1 %></p>
-        <p class='product__url'><%= product.url2 %></p>
-        <p class='product__url'><%= product.url3 %></p>
+        <div class="lghInfoDiv">
+            <p class="product__name"><%= product.city %></p>
+            <p class="product__info"><%= product.street %></p>
+            <p class="product__desc"><%= product.descriptions %></p>
+            <p class="product__url"><%= product.room %></p>
+            <p class="product__url"><%= product.price %></p>
+        </div>
+        <div class="lghUxDiv">
+
+
+            <a class="btn-update" href="/update/<%=product._id%>" role="button"><i class="fa fa-edit"></i></a>
+            <a class="btn-delete" href="/delete/<%=product._id%>"> <i class="fa fa-trash"></i></a>
+
+
+        </div>
+
     </div>
     <% }) %>
 </div>

@@ -20,18 +20,32 @@
 				<p class="product__url"><%= product.price %></p>
 			</div>
 			<div class="lghUxDiv">
+
+				<form action="/addtocart" method="post">
+
+					<input type="week" name="bookingDate" id="bookingDate">
+					<input type="number" id="numberOfAttendees" name="numberOfAttendees">
+
+
+					<a class="btn-cart" href="/addtocart" role="button"><i class="fa fa-shopping-cart"></i></a>
+				</form>
+
 				<a href="/wishlist/<%= product._id %>"><i class="fa fa-heart"></i></a>
-				<a href="/addToCart/<%= product._id %>"><i class="fa fa-shopping-cart"></i></a>
+
+
+				<!-- 
+				<a href="/wishlist/<%= product._id %>"><i class="fa fa-heart"></i></a>
+				<a class="btn-cart" href="/addtocart" role="button"><i class="fa fa-shopping-cart"></i></a> -->
+				<!-- <a href="/addToCart/<%= product._id %>"><i class="fa fa-shopping-cart"></i></a> -->
 			</div>
-			<div class="bookingDiv">
-				<input type="date" name="dateTimeFrom" id="dateTimeFrom">
-				<input type="date" name="dateTimeTo" id="dateTimeTo">
-				<input type="number" name="numberOfAttendees" id="numberOfAttendees">
- <!-- 
+			<!-- <div class="bookingDiv"> -->
+			<!-- <input type="date" name="dateTimeFrom" id="dateTimeFrom"> -->
+
+			<!-- 
 				Koppla ihop bookingschema med user och product schema. 
 				Kolla upp hur datumen även mellan in & utcheckning också blir bokat/ej valbara.
-			 -->	
-			</div>
+			 -->
+			<!-- </div> -->
 		</div>
 		<% }) %>
 	</div>

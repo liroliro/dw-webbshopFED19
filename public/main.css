@@ -292,6 +292,14 @@ color: rgb(180, 15, 15);
 .productPhoto {
   width: 100%
 }
+
+.fa-trash {
+  color: black;
+}
+
+.fa-edit {
+  color: black;
+}
 @media screen and (min-width: 992px) {
  body {
    justify-content:space-evenly;

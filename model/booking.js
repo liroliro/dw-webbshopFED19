@@ -6,8 +6,7 @@ var Schema = mongoose.Schema;
 var BookingSchema = new Schema({
     /*  ownerUserId: String,
      locationId: String, */
-    dateTimeFrom: Date,
-    dateTimeTo: Date,
+    bookingDate: Date,
     numberOfAttendees: Number,
 
 });
