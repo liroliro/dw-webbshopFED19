@@ -154,4 +154,10 @@ router.post("/update/:id", async (req, res) => {
 	res.redirect("/createproduct")
 })
 
+
+router.get("/delete/:id", async (req, res) => {
+	await ProductModel
+		.deleteOne({ _id: req.params.id });
+	res.redirect("/createproduct")
+})
 module.exports = router;
