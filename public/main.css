@@ -1,4 +1,4 @@
-/* Basic CSS-grid layout, for footerfooterIcon */
+/* Basic CSS-grid layout, for footerfooterIcon
 .footerContainer {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -37,13 +37,6 @@
   margin: 0px 30px;
 }
 
-.section {
-  max-width: 900px;
-  padding: 90px 30px;
-  background-color: lightgray;
-  text-align: center;
-}
-
 .subnav {
   position: sticky;
   bottom: 0;
@@ -71,15 +64,6 @@
   display: inline-block;
   margin: 0px 30px;
   padding: 5px;
-}
-
-
-
-
-h1 {
-  font-size: 6em;
-  margin: 0 90px;
-  text-align: center;
 }
 
 .subnav {
@@ -173,15 +157,66 @@ input[type=range]:active+output {
 .fa-shopping-cart {
   color: black;
 
+} */
+/*///////////////////////////////////////////////// 
+        SECTION
+/////////////////////////////////////////////////*/
+.section {
+  margin: 0 auto;
+  max-width: 1200px;
+  padding: 90px 30px;
+  background-color: lightgray;
+  text-align: center;
+}
+/*///////////////////////////////////////////////// 
+        BLOGPOSTS
+/////////////////////////////////////////////////*/
+.blogposts {
+  margin: 0 auto;
+  max-width: 1200px;
+  padding: 90px 30px;
+  background-color: red;
+  display: flex;
+  flex-direction: row;
+}
+
+.blogpost {
+  width: 400px;
+  height: 300px;
 }
 
 /*///////////////////////////////////////////////// 
         HEADER 
 /////////////////////////////////////////////////*/
 #header {
-  height: 375px;
-  transform: rotate(-180deg);
-  background-image: url('/static/images/manhattan-skyline.jpg');
+  height: 350px;
+  background-image: url('/static/images/manhattan-skyline2.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+#header a h1 {
+  transform: translate(-50%, -50%);
+  font-size: 6em;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border: 10px solid #38D0AB;
+  letter-spacing: 0.3em;
+  text-shadow: 0px 0px 4px rgba(255,255,255,1);
+  text-decoration: none;
+  color: #000;
+}
+
+@media screen and (max-width: 600px) {
+  #header a h1 {
+    font-size: 4em;
+  }
+}
+
+#header a:hover {
+  text-decoration: none;
 }
 
 /*///////////////////////////////////////////////// 
@@ -201,7 +236,7 @@ input[type=range]:active+output {
   transition: 0.3s;
 }
 
-.closebtn {
+#closebtn {
   position: absolute;
   top: 0;
   right: 25px;
@@ -209,7 +244,7 @@ input[type=range]:active+output {
   margin-left: 50px;
 }
 
-.sidenav, a:hover {
+.sidenav a:hover {
   color: #6e6e6e;
   text-decoration: none;
 }
@@ -227,7 +262,7 @@ input[type=range]:active+output {
   line-height: 45px;
 }
 
-.sidenav, a {
+.sidenav a {
   text-decoration: none;
   font-size: 25px;
   color: #fff;
@@ -287,7 +322,7 @@ color: rgb(180, 15, 15);
   display: inline-block;
   overflow: hidden;
   object-fit: contain;
-  max-height: 50px:
+  max-height: 50px;
 }
 .productPhoto {
   width: 100%
@@ -301,52 +336,109 @@ color: rgb(180, 15, 15);
   color: black;
 }
 @media screen and (min-width: 992px) {
- body {
-   justify-content:space-evenly;
-   position: relative;
+  body {
+    justify-content:space-evenly;
+    position: relative;
+    
+  }
+  .productList{
+    justify-content: space-between;
+    float: left;
+    position: relative;
+    width: 100%;
+  }
+    .productItem{
+    
+    float: left;
+    width: 30%;
+    height: 360px;
+    
+  }
+
+  .lghInfoDiv {
+    float: left;
+    padding-left: 5px;
+    display: block;
   
- }
- .productList{
-   justify-content: space-between;
-   float: left;
-   position: relative;
-   width: 100%;
- }
-  .productItem{
-   
-  float: left;
-  width: 30%;
-  height: 360px;
+  }
+
+  .product__name {
+    font-size: 1.5em;
+  }
+  .product__info {
+    font-size: 0.9em;
+    padding-left: 7px;
+    top: 0;
+  }
+  .product__desc {
+    font-style: italic;
+  }
+
+  .lghphotoDiv {
+    display: inline-block;
+    overflow: hidden;
+    object-fit: contain;
+    max-height: 50px;
+  }
+  .productPhoto {
+    width: 100%
+  }
+
+}
+
+/*///////////////////////////////////////////////// 
+        FOOTER
+/////////////////////////////////////////////////*/
+
+.footer {
+  background-color: #38D0AB;
+  display: flex;
+  /* width: 100%; */
+  justify-content: space-between;
+  padding-left: 150px;
+  padding-right: 280px;
+}
+
+.footerlist {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.info-container.socialmedia-container {
+  width: 50%;
   
- }
-
- .lghInfoDiv {
-   float: left;
-  padding-left: 5px;
-  display: block;
- 
 }
 
-.product__name {
-  font-size: 1.5em;
-}
-.product__info {
-  font-size: 0.9em;
-  padding-left: 7px;
-  top: 0;
-}
-.product__desc {
-  font-style: italic;
+.footer a {
+  font-size: 16px;
+  font-weight: 700;
+  /* color: #fff; */
 }
 
-.lghphotoDiv {
-  display: inline-block;
-  overflow: hidden;
-  object-fit: contain;
-  max-height: 50px:
-}
-.productPhoto {
-  width: 100%
+.footer a:hover {
+  color: #6e6e6e;
+  text-decoration: none;
 }
 
+.footer li {
+  list-style: none;
+  color: #fff;
+}
+
+li i {
+  font-size: 32px;
+  color: #fff;
+  line-height: 2em;
+  margin-bottom: 19px;
+}
+
+.social {
+  position: relative;
+}
+
+.social span {
+  font-size: 20px;
+  position: absolute;
+  bottom: 20px;
+  left: 35px; 
 }
