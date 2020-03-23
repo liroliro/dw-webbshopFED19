@@ -125,7 +125,7 @@ router.get('/addtocart', async (req, res) => {
 	}).save();
 	res.redirect('/product');
 });
-
+ç
 router.get("/update/:id", async (req, res) => {
 
 	const response = await ProductModel.findById({ _id: req.params.id })
