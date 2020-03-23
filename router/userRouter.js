@@ -39,6 +39,7 @@ router.post('/register', async (req, res) => {
 	//   subject: "Login succeded",
 	//   html: "<h1> Välkommen" + user.email + "</h1>"
 	// });
+	
 	res.render('userprofile', { user });
 });
 

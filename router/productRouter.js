@@ -1,5 +1,6 @@
 const express = require('express');
 const ProductModel = require('../model/product');
+const BookingModel = require('../model/booking');
 const router = express.Router();
 const mongoose = require('mongoose');
 
@@ -20,12 +21,11 @@ let newapartment;
 
 router.post('/createproduct', async (req, res) => {
 	newapartment = new ProductModel({
-		header: req.body.header,
-		smallheader: req.body.smallheader,
+		city: req.body.city,
+		street: req.body.street,
 		descriptions: req.body.descriptions,
 		room: req.body.room,
 		productprice: req.body.productprice,
-		days: req.body.days,
 		url1: req.body.url1,
 		url2: req.body.url2,
 		url3: req.body.url3,
@@ -37,7 +37,7 @@ router.post('/createproduct', async (req, res) => {
 });
 
 router.get('/createproduct', async (req, res) => {
-	const product_per_page = 4;
+	const product_per_page = 8;
 	const page = +req.query.page; //number(req.query.page)
 	//räknar total antal produkter
 	const countProduct = ProductModel.find().countDocuments();
@@ -74,7 +74,8 @@ router.get('/my-pages', (req, res) => {
 });
 
 router.get('/product', async (req, res) => {
-	const product_per_page = 4;
+
+	const product_per_page = 8;
 	const page = +req.query.page; //number(req.query.page)
 	//räknar total antal produkter
 	const countProduct = ProductModel.find().countDocuments();
@@ -113,4 +114,50 @@ router.get('/product', async (req, res) => {
 		err ? res.send(err.message) : res.redirect('/product');
 	});
 }); */
+let newbooking;
+router.get('/addtocart', async (req, res) => {
+	newBooking = new BookingModel({
+		/* ownerUserId: ,
+		locationId: , */
+		/* dateTimeFrom: req.body.dateTimeFrom, */
+		bookingDate: req.body.bookingDate,
+		numberOfAttendees: req.body.numberOfAttendees
+	}).save();
+	res.redirect('/product');
+});
+
+router.get("/update/:id", async (req, res) => {
+
+	const response = await ProductModel.findById({ _id: req.params.id })
+	console.log(response);
+
+	res.render("edit", { response })
+})
+
+router.post("/update/:id", async (req, res) => {
+
+	await ProductModel.updateOne({ _id: req.body._id },
+		{
+			$set: {
+				city: req.body.city,
+				street: req.body.street,
+				descriptions: req.body.descriptions,
+				room: req.body.room,
+				productprice: req.body.productprice,
+				url1: req.body.url1,
+				url2: req.body.url2,
+				url3: req.body.url3
+			}
+		},
+		{ runValidators: true })
+	console.log(req.body);
+	res.redirect("/createproduct")
+})
+
+
+router.get("/delete/:id", async (req, res) => {
+	await ProductModel
+		.deleteOne({ _id: req.params.id });
+	res.redirect("/createproduct")
+})
 module.exports = router;

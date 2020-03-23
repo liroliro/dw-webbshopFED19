@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
 const productSchema = new mongoose.Schema({
-	header: {
+	city: {
 		type: String
 	},
-	smallheader: {
+	street: {
 		type: String
 	},
 	descriptions: {
@@ -14,9 +14,6 @@ const productSchema = new mongoose.Schema({
 		type: Number
 	},
 	productprice: {
-		type: Number
-	},
-	days: {
 		type: Number
 	},
 	url1: {
