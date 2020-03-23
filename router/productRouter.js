@@ -114,18 +114,30 @@ router.get('/product', async (req, res) => {
 		err ? res.send(err.message) : res.redirect('/product');
 	});
 }); */
+
+
 let newbooking;
-router.get('/addtocart', async (req, res) => {
+router.post('/addtocart', async (req, res) => {
 	newBooking = new BookingModel({
 		/* ownerUserId: ,
 		locationId: , */
 		/* dateTimeFrom: req.body.dateTimeFrom, */
+
 		bookingDate: req.body.bookingDate,
 		numberOfAttendees: req.body.numberOfAttendees
+
 	}).save();
+	console.log(req.body);
+	res.redirect('/addtocart');
+});
+
+router.get('/addtocart', async (req, res) => {
+
 	res.redirect('/product');
 });
-ç
+
+
+
 router.get("/update/:id", async (req, res) => {
 
 	const response = await ProductModel.findById({ _id: req.params.id })
