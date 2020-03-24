@@ -57,7 +57,7 @@ router.post('/login', async (req, res) => {
 
 	// Jämför information från databas till input
 	const validUser = await bcrypt.compare(req.body.loginPassword, user.password);
-
+	console.log(user);
 	if (!validUser) return res.redirect('/register');
 
 	jwt.sign({ user }, 'secretKey', (err, token) => {

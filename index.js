@@ -5,7 +5,6 @@ const userRouter = require('./router/userRouter');
 const config = require('./config/config');
 const app = express();
 const cookieParser = require('cookie-parser');
-
 const path = require('path');
 
 //middleware
