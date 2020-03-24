@@ -22,7 +22,21 @@
 				<form action="/addtocart" method="post">
 
 					<input type="week" name="bookingDate" id="bookingDate">
-					<input type="number" id="numberOfAttendees" name="numberOfAttendees">
+					<label for="cars">Antal boende:</label>
+					<select id="numberOfAttendees" name="numberOfAttendees">
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+					</select>
+					<!-- 
+					<input type="number" id="numberOfAttendees" name="numberOfAttendees"> -->
+					<a class="btn-cart" href="/addtocart" role="button"><button type="submit"><i
+								class="fa fa-shopping-cart"></i></a>
 				</form>
 			</div>
 			<div class="lghUxDiv">
