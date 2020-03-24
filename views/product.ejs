@@ -14,15 +14,42 @@
 
 			<div class="lghInfoDiv">
 				<p class="product__name"><%= product.city %></p>
+				<table>
+					<tr>
+						<td class="pro-table-Title">Location:</td>
+						<td class="pro-table-Info"><%= product.street %></td>
+					</tr>
+					<tr>
+						<td class="pro-table-Title">Room:</td>
+						<td class="pro-table-Info"><%= product.room %></td>
+
+					</tr>
+					<tr>
+						<td class="pro-table-Title">SEK/week:</td>
+						<td class="pro-table-Info"><%= product.productprice %></td>
+
+					</tr>
+					<tr>
+						<td class="pro-table-Info" colspan="2"></td>
+					</tr>
+					<tr>
+
+						<td class="pro-table-InfoDesc" colspan="2"><%= product.descriptions %></td>
+
+					</tr>
+				</table>
+
+
+				<!-- 
 				<p class="product__info"><%= product.street %></p>
 				<p class="product__desc"><%= product.descriptions %></p>
 				<p class="product__url"><%= product.room %></p>
 				<p class="product__url"><%= product.price %></p>
-
+ -->
 				<form action="/addtocart" method="post">
 
-					<input type="week" name="bookingDate" id="bookingDate">
-					<label for="cars">Antal boende:</label>
+					<input type="week" name="bookingDate" id="bookingDate" label="week">
+					<label for="Attendees" class="pro-table-Title">Attendees:</label>
 					<select id="numberOfAttendees" name="numberOfAttendees">
 						<option value="1">1</option>
 						<option value="2">2</option>
@@ -35,55 +62,42 @@
 					</select>
 					<!-- 
 					<input type="number" id="numberOfAttendees" name="numberOfAttendees"> -->
-					<a class="btn-cart" href="/addtocart" role="button"><button type="submit"><i
-								class="fa fa-shopping-cart"></i></a>
+					<a class="btn-cart" href="/addtocart" role="button"><button type="submit">Book Apartment</i></a>
 				</form>
 			</div>
 			<div class="lghUxDiv">
 
-				<form action="/addtocart" method="post">
-					<a class="btn-cart" href="/addtocart" role="button"><button type="submit"><i
-								class="fa fa-shopping-cart"></i></a>
-					</button></form>
+				<a href="/wishlist/<%= product._id %>"><i class="fa fa-2x fa-heart"></i></a>
 
-				<a href="/wishlist/<%= product._id %>"><i class="fa fa-heart"></i></a>
-
-
-				<!-- 
-				<a href="/wishlist/<%= product._id %>"><i class="fa fa-heart"></i></a>
-				<a class="btn-cart" href="/addtocart" role="button"><i class="fa fa-shopping-cart"></i></a> -->
-				<!-- <a href="/addToCart/<%= product._id %>"><i class="fa fa-shopping-cart"></i></a> -->
 			</div>
-			<!-- <div class="bookingDiv"> -->
-			<!-- <input type="date" name="dateTimeFrom" id="dateTimeFrom"> -->
 
-			<!-- 
-				Koppla ihop bookingschema med user och product schema. 
-				Kolla upp hur datumen även mellan in & utcheckning också blir bokat/ej valbara.
-			 -->
-			<!-- </div> -->
 		</div>
 		<% }) %>
+		<div class="paginationDiv">
+			<!-- PAGINATION- EJ FUNGERNADE ÄN  -->
+			<% if(products.length >=1 ){ %>
+			<div class="pagination">
+				<% if(currentPage !==1 && previousPage !==1){ %>
+				<a href="/product/?page=<%=page=1%>">1</a>
+				<% } %> <% if (hasPreviousPage) { %>
+				<a href="/product/?page=<%= prevoiusPage%>"><%= prevoiusPage %></a>
+				<% } %> <% if(hasNextPage) { %>
+				<a href="/product/?page=<%=nextPage %>"><%nextPage%></a>
+				<% } %> <% if(currentPage) { %>
+				<a href="/product/?page=%=currentPage%>"><%=currentPage%></a>
+				<% } %> <% if(lastPage !==currentPage && nextPage !==lastPage) { %> <% } %>
+				<% if(lastPage !== currentPage && nextPage !== lastPage ) { %>
+				<a href="/product/?page=<%=lastPage%>"><%=lastPage%></a>
+				<% } %>
+			</div>
+
+
+			<% }%>
+		</div>
+
 	</div>
 
 
-	<!-- PAGINATION- EJ FUNGERNADE ÄN  -->
-	<% if(products.length >=1 ){ %>
-	<div class="pagination">
-		<% if(currentPage !==1 && previousPage !==1){ %>
-		<a href="/product/?page=<%=page=1%>">1</a>
-		<% } %> <% if (hasPreviousPage) { %>
-		<a href="/product/?page=<%= prevoiusPage%>"><%= prevoiusPage %></a>
-		<% } %> <% if(hasNextPage) { %>
-		<a href="/product/?page=<%=nextPage %>"><%nextPage%></a>
-		<% } %> <% if(currentPage) { %>
-		<a href="/product/?page=%=currentPage%>"><%=currentPage%></a>
-		<% } %> <% if(lastPage !==currentPage && nextPage !==lastPage) { %> <% } %>
-		<% if(lastPage !== currentPage && nextPage !== lastPage ) { %>
-		<a href="/product/?page=<%=lastPage%>"><%=lastPage%></a>
-		<% } %>
-	</div>
-	<% }%>
 </body>
 
 <%- include("footer.ejs")%>
