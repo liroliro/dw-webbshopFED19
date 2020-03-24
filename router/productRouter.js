@@ -132,16 +132,16 @@ router.post('/addtocart', async (req, res) => {
 	res.redirect('/addtocart');
 });
 
-//Försöker konvertera string till date i mongoDb
+//Försöker konvertera string till date i mongoDb//Backlog
 /* const bookingDb = BookingModel.find();
 
 bookingDb.forEach(function (doc) {
 	doc.bookingDate = new ISODate(doc.bookingDate);
 	db.bookingDb.save(doc);
-})
+}) */
 
-console.log(bookingDb);
- */
+
+
 
 router.get('/addtocart', async (req, res) => {
 
