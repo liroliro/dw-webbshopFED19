@@ -18,15 +18,16 @@
 				<p class="product__desc"><%= product.descriptions %></p>
 				<p class="product__url"><%= product.room %></p>
 				<p class="product__url"><%= product.price %></p>
-			</div>
-			<div class="lghUxDiv">
 
 				<form action="/addtocart" method="post">
 
 					<input type="week" name="bookingDate" id="bookingDate">
 					<input type="number" id="numberOfAttendees" name="numberOfAttendees">
+				</form>
+			</div>
+			<div class="lghUxDiv">
 
-
+				<form action="/addtocart" method="post">
 					<a class="btn-cart" href="/addtocart" role="button"><button type="submit"><i
 								class="fa fa-shopping-cart"></i></a>
 					</button></form>
