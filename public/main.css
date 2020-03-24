@@ -183,6 +183,8 @@ input[type=range]:active+output {
 .blogpost {
   width: 400px;
   height: 300px;
+  background-color: blue;
+  margin: 0 20px;
 }
 
 /*///////////////////////////////////////////////// 
