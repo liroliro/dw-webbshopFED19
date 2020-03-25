@@ -34,6 +34,7 @@
   border-top-left-radius: 45px;
   border-top-right-radius: 45px;
   box-shadow: 4px 4px 6px 1px rgba(0,0,0,0.75);
+  cursor: pointer;
 }
 
 .images-class {

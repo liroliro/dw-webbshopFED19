@@ -1,11 +1,12 @@
-mongoose = require('mongoose');
+const mongoose = require('mongoose');
+
 
 
 var Schema = mongoose.Schema;
 
 var BookingSchema = new Schema({
     /*  ownerUserId: String,
-     locationId: String, */
+    locationId: String, */
     bookingDate: Date,
     numberOfAttendees: Number,
 
