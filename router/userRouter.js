@@ -26,6 +26,13 @@ router.post('/register', async (req, res) => {
 	try {
 		const salt = await bcrypt.genSalt(10);
 		const hashPassword = await bcrypt.hash(req.body.password, salt);
+		if ((req.body.email = await User.findOne({ email: req.body.email }))) {
+			res.send('Denna användare finns redan, testa med en annan email.');
+			setTimeout(() => {
+				res.render('register');
+			}, 3000);
+		}
+
 		await new User({
 			email: req.body.email,
 			password: hashPassword
