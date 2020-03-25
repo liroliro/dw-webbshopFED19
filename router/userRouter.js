@@ -9,6 +9,7 @@ const nodemailer = require('nodemailer');
 const sendGridTransport = require('nodemailer-sendgrid-transport');
 const crypto = require('crypto');
 const Product = require('../model/product');
+const flash = require('connect-flash');
 
 const transport = nodemailer.createTransport(
 	sendGridTransport({
@@ -23,25 +24,56 @@ router.get('/register', async (req, res) => {
 });
 
 router.post('/register', async (req, res) => {
-	try {
-		const salt = await bcrypt.genSalt(10);
-		const hashPassword = await bcrypt.hash(req.body.password, salt);
-		if ((req.body.email = await User.findOne({ email: req.body.email }))) {
-			res.send('Denna användare finns redan, testa med en annan email.');
-			setTimeout(() => {
-				res.render('register');
-			}, 3000);
-		}
+	const { email, password } = req.body;
+	let errors = [];
 
-		await new User({
-			email: req.body.email,
-			password: hashPassword
-		}).save();
-		const user = await User.findOne({ email: req.body.email });
+	if (!email || !password) {
+		errors.push({ msg: 'Please enter all fields' });
+	}
 
-		res.render('userprofile', { user });
-	} catch (err) {
-		res.send(err.message);
+	if (password.length < 6) {
+		errors.push({ msg: 'Password must be at least 6 characters' });
+	}
+
+	if (errors.length > 0) {
+		res.render('register', {
+			errors,
+			email,
+			password
+		});
+	} else {
+		User.findOne({ email: email }).then(user => {
+			if (user) {
+				errors.push({ msg: 'Email already exists' });
+				res.render('register', {
+					errors,
+					email,
+					password
+				});
+			} else {
+				const newUser = new User({
+					email,
+					password
+				});
+
+				bcrypt.genSalt(10, (err, salt) => {
+					bcrypt.hash(newUser.password, salt, (err, hash) => {
+						if (err) throw err;
+						newUser.password = hash;
+						newUser
+							.save()
+							.then(user => {
+								req.flash(
+									'success_msg',
+									'You are now registered and can log in'
+								);
+								res.redirect('/login');
+							})
+							.catch(err => console.log(err));
+					});
+				});
+			}
+		});
 	}
 });
 
