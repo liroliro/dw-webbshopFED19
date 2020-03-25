@@ -23,16 +23,19 @@ router.get('/register', async (req, res) => {
 });
 
 router.post('/register', async (req, res) => {
-	const salt = await bcrypt.genSalt(10);
-	const hashPassword = await bcrypt.hash(req.body.password, salt);
-	await new User({
-		email: req.body.email,
-		password: hashPassword
-	}).save();
+	try {
+		const salt = await bcrypt.genSalt(10);
+		const hashPassword = await bcrypt.hash(req.body.password, salt);
+		await new User({
+			email: req.body.email,
+			password: hashPassword
+		}).save();
+		const user = await User.findOne({ email: req.body.email });
 
-	const user = await User.findOne({ email: req.body.email });
-
-	res.render('userprofile', { user });
+		res.render('userprofile', { user });
+	} catch (err) {
+		res.send(err.message);
+	}
 });
 
 router.get('/login', (req, res) => {
