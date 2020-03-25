@@ -279,7 +279,7 @@ color: rgb(180, 15, 15);
   display: inline-block;
   overflow: hidden;
   object-fit: contain;
-  max-height: 50px;
+  max-height: 110px;
 }
 .productPhoto {
   width: 100%
@@ -327,7 +327,7 @@ margin: 0 auto;
     width: 100%;
     height: 40px;
     float: left;
-    text-align: center;
+   padding-left: 50px;
   }
 
   .lghInfoDiv {
@@ -353,7 +353,7 @@ margin: 0 auto;
     display: inline-block;
     overflow: hidden;
     object-fit: contain;
-    max-height: 50px;
+    max-height: 80px;
   }
   .productPhoto {
     width: 100%
