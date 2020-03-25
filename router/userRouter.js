@@ -23,24 +23,26 @@ router.get('/register', async (req, res) => {
 });
 
 router.post('/register', async (req, res) => {
-	const salt = await bcrypt.genSalt(10);
-	const hashPassword = await bcrypt.hash(req.body.password, salt);
-	await new User({
-		email: req.body.email,
-		password: hashPassword
-	}).save();
+	try {
+		const salt = await bcrypt.genSalt(10);
+		const hashPassword = await bcrypt.hash(req.body.password, salt);
+		if ((req.body.email = await User.findOne({ email: req.body.email }))) {
+			res.send('Denna användare finns redan, testa med en annan email.');
+			setTimeout(() => {
+				res.render('register');
+			}, 3000);
+		}
 
-	const user = await User.findOne({ email: req.body.email });
+		await new User({
+			email: req.body.email,
+			password: hashPassword
+		}).save();
+		const user = await User.findOne({ email: req.body.email });
 
-	// Känns inte som vi behöver denna, då vi inte väl skicka mail vid registrering, antar jag?
-	// transport.sendMail({
-	//   to: user.email,
-	//   from: "<no-reply>hemNet@apartment.com",
-	//   subject: "Login succeded",
-	//   html: "<h1> Välkommen" + user.email + "</h1>"
-	// });
-	
-	res.render('userprofile', { user });
+		res.render('userprofile', { user });
+	} catch (err) {
+		res.send(err.message);
+	}
 });
 
 router.get('/login', (req, res) => {
@@ -157,6 +159,19 @@ router.get('/cart', verifyToken, async (req, res) => {
 	}
 
 	res.render('cart', { products });
+});
+
+router.get('/checkout', verifyToken, async (req, res) => {
+	const user = await User.findOne({ _id: req.body.user._id });
+	const products = [];
+	for (let i = 0; i < user.cart.length; i++) {
+		const product = await Product.findOne(user.cart[i].productId);
+
+		products.push(product);
+	}
+
+	console.log(products);
+	res.render('checkout', { products });
 });
 
 router.get('/delete/:id', verifyToken, async (req, res) => {
