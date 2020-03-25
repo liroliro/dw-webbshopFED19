@@ -46,7 +46,7 @@
 				<p class="product__url"><%= product.room %></p>
 				<p class="product__url"><%= product.price %></p>
  -->
-				<form action="/addtocart" method="post">
+				<form action="/addtocart/<%= product._id %>" method="post">
 
 					<input type="week" name="bookingDate" id="bookingDate" label="week">
 					<label for="Attendees" class="pro-table-Title">Attendees:</label>
@@ -62,7 +62,7 @@
 					</select>
 					<!-- 
 					<input type="number" id="numberOfAttendees" name="numberOfAttendees"> -->
-					<a class="btn-cart" href="/addtocart" role="button"><button type="submit">Book Apartment</i></a>
+					<a class="btn-cart" href="/addToCart/<%= product._id %>" role="button"><button type="submit">Book Apartment</i></a>
 				</form>
 			</div>
 			<div class="lghUxDiv">

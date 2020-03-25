@@ -1,15 +1,18 @@
-<%- include("header.ejs")%>
-<%- include("menu.ejs") %>
+<%- include("header.ejs")%> <%- include("menu.ejs") %>
 <title>C H O C C - Checkout</title>
 <body>
-    <div class="main">
-        <form action="" method="post">
-            <input type="text" id="first-name" placeholder="Förnamn">
-            <input type="text" id="last-name" placeholder="Efternamn"><br>
-            <input type="text" id="city" placeholder="Stad"><br>
-            <input type="text" id="street" placeholder="Gata">
-            <input type="text" id="house-number" placeholder="Husnummer/port">
-        </form>
-    </div>
+	<% products.forEach((product) => { %>
+	<p><%= product %></p>
+	<p>loop for products</p>
+	<% }) %>
+	<div class="main">
+		<form action="" method="post">
+			<input type="text" id="first-name" placeholder="Förnamn" />
+			<input type="text" id="last-name" placeholder="Efternamn" /><br />
+			<input type="text" id="city" placeholder="Stad" /><br />
+			<input type="text" id="street" placeholder="Gata" />
+			<input type="text" id="house-number" placeholder="Husnummer/port" />
+		</form>
+	</div>
 </body>
 <%- include("footer.ejs") %>

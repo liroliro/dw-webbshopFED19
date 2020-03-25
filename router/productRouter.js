@@ -13,9 +13,6 @@ router.get('/admin', (req, res) => {
 	res.render('admin');
 });
 
-router.get('/checkout', (req, res) => {
-	res.render('checkout');
-});
 
 let newapartment;
 
@@ -139,15 +136,6 @@ bookingDb.forEach(function (doc) {
 	doc.bookingDate = new ISODate(doc.bookingDate);
 	db.bookingDb.save(doc);
 }) */
-
-
-
-
-router.get('/addtocart', async (req, res) => {
-
-	res.redirect('/product');
-});
-
 
 
 router.get("/update/:id", async (req, res) => {

@@ -32,14 +32,6 @@ router.post('/register', async (req, res) => {
 
 	const user = await User.findOne({ email: req.body.email });
 
-	// Känns inte som vi behöver denna, då vi inte väl skicka mail vid registrering, antar jag?
-	// transport.sendMail({
-	//   to: user.email,
-	//   from: "<no-reply>hemNet@apartment.com",
-	//   subject: "Login succeded",
-	//   html: "<h1> Välkommen" + user.email + "</h1>"
-	// });
-	
 	res.render('userprofile', { user });
 });
 
@@ -157,6 +149,19 @@ router.get('/cart', verifyToken, async (req, res) => {
 	}
 
 	res.render('cart', { products });
+});
+
+router.get('/checkout', verifyToken, async (req, res) => {
+	const user = await User.findOne({ _id: req.body.user._id });
+	const products = [];
+	for (let i = 0; i < user.cart.length; i++) {
+		const product = await Product.findOne(user.cart[i].productId);
+
+		products.push(product);
+	}
+
+	console.log(products);
+	res.render('checkout', { products });
 });
 
 router.get('/delete/:id', verifyToken, async (req, res) => {
