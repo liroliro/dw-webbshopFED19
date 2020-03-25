@@ -91,7 +91,6 @@ router.post('/login', async (req, res) => {
 
 	// Jämför information från databas till input
 	const validUser = await bcrypt.compare(req.body.loginPassword, user.password);
-	console.log(user);
 	if (!validUser) return res.redirect('/register');
 
 	jwt.sign({ user }, 'secretKey', (err, token) => {
@@ -102,7 +101,6 @@ router.post('/login', async (req, res) => {
 			if (!cookie) {
 				res.cookie('jsonwebtoken', token, { maxAge: 3600000, httpOnly: true });
 			}
-			// console.log(user);
 			res.render('userprofile', { user });
 		}
 		res.redirect('/login');
@@ -166,7 +164,6 @@ router.post('/reset/:token', async (req, res) => {
 
 router.get('/wishlist/:id', verifyToken, async (req, res) => {
 	const product = await Product.findOne({ _id: req.params.id });
-	console.log(req.body);
 	const user = await User.findOne({ _id: req.body.user._id });
 
 	await user.addToWishlist(product);
@@ -202,7 +199,6 @@ router.get('/checkout', verifyToken, async (req, res) => {
 		products.push(product);
 	}
 
-	console.log(products);
 	res.render('checkout', { products });
 });
 
