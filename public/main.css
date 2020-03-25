@@ -238,6 +238,8 @@ body {
         PRODUCT/Productside
 ///////////////////////////////////////////////////
 /////////////////////////////////////////////////*/
+
+
 .productItem {
   display: flex;
   position: relative;
@@ -259,14 +261,20 @@ color: rgb(180, 15, 15);
 .product__name {
   font-size: 1.5em;
 }
-.product__info {
-  font-size: 0.9em;
-  padding-left: 7px;
-  top: 0;
+.pro-table-Info {
+  font-size: 0.8em;
+  
 }
-.product__desc {
+.pro-table-Title {
+  font-size: 0.8em;
+  font-weight: bold;
+}
+.pro-table-InfoDesc{
+  font-size: 0.8em;
   font-style: italic;
+  margin-top: 3px;
 }
+
 .lghphotoDiv {
   width: 40%;
   display: inline-block;
@@ -285,24 +293,42 @@ color: rgb(180, 15, 15);
 .fa-edit {
   color: black;
 }
+#bookingDate {
+  margin-top: 3px;
+  width: 120px;
+  border-radius: 8px;
+}
+#numberOfAttendees {
+  margin-top: 5px;
+}
+.paginationDiv {
+  justify-content: center;
+margin: 0 auto;
+}
+
 @media screen and (min-width: 992px) {
   body {
-    justify-content:space-evenly;
-    position: relative;
-    
+   
   }
   .productList{
     justify-content: space-between;
     float: left;
     position: relative;
     width: 100%;
+    
   }
     .productItem{
     
     float: left;
-    width: 30%;
+    width: 31%;
     height: 360px;
     
+  }
+  .paginationDiv {
+    width: 100%;
+    height: 40px;
+    float: left;
+    text-align: center;
   }
 
   .lghInfoDiv {

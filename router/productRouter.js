@@ -114,17 +114,41 @@ router.get('/product', async (req, res) => {
 		err ? res.send(err.message) : res.redirect('/product');
 	});
 }); */
-let newbooking;
-router.get('/addtocart', async (req, res) => {
-	newBooking = new BookingModel({
+
+
+let newBooking;
+router.post('/addtocart', async (req, res) => {
+	console.log(req.body);
+	newBooking = await new BookingModel({
 		/* ownerUserId: ,
 		locationId: , */
 		/* dateTimeFrom: req.body.dateTimeFrom, */
+
 		bookingDate: req.body.bookingDate,
 		numberOfAttendees: req.body.numberOfAttendees
+
 	}).save();
+
+	res.redirect('/addtocart');
+});
+
+//Försöker konvertera string till date i mongoDb//Backlog
+/* const bookingDb = BookingModel.find();
+
+bookingDb.forEach(function (doc) {
+	doc.bookingDate = new ISODate(doc.bookingDate);
+	db.bookingDb.save(doc);
+}) */
+
+
+
+
+router.get('/addtocart', async (req, res) => {
+
 	res.redirect('/product');
 });
+
+
 
 router.get("/update/:id", async (req, res) => {
 
@@ -160,4 +184,8 @@ router.get("/delete/:id", async (req, res) => {
 		.deleteOne({ _id: req.params.id });
 	res.redirect("/createproduct")
 })
+
+
+
+
 module.exports = router;
