@@ -73,30 +73,15 @@
 
 		</div>
 		<% }) %>
-		<div class="paginationDiv">
-			<!-- PAGINATION- EJ FUNGERNADE ÄN  -->
-			<% if(products.length >=1 ){ %>
-			<div class="pagination">
-				<% if(currentPage !==1 && previousPage !==1){ %>
-				<a href="/product/?page=<%=page=1%>">1</a>
-				<% } %> <% if (hasPreviousPage) { %>
-				<a href="/product/?page=<%= prevoiusPage%>"><%= prevoiusPage %></a>
-				<% } %> <% if(hasNextPage) { %>
-				<a href="/product/?page=<%=nextPage %>"><%nextPage%></a>
-				<% } %> <% if(currentPage) { %>
-				<a href="/product/?page=%=currentPage%>"><%=currentPage%></a>
-				<% } %> <% if(lastPage !==currentPage && nextPage !==lastPage) { %> <% } %>
-				<% if(lastPage !== currentPage && nextPage !== lastPage ) { %>
-				<a href="/product/?page=<%=lastPage%>"><%=lastPage%></a>
-				<% } %>
-			</div>
-
-
-			<% }%>
-		</div>
-
+		
+		
 	</div>
+	
+	<% for(var i=0; i < numberOfPages; i++) { %>
+		
+		<a href="/product/?page=<%= i+1 %>"><%= i+1 %></a>
 
+		<% } %>
 
 </body>
 

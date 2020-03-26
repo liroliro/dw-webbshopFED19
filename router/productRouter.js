@@ -72,30 +72,26 @@ router.get('/my-pages', (req, res) => {
 
 router.get('/product', async (req, res) => {
 
-	const product_per_page = 8;
+	const product_per_page = 3;
 	const page = +req.query.page; //number(req.query.page)
 	//räknar total antal produkter
-	const countProduct = ProductModel.find().countDocuments();
-
 	const products = await ProductModel.find()
-		.skip(product_per_page * (page - 1))
-		.limit(product_per_page);
+	.skip(product_per_page * (page - 1))
+	.limit(product_per_page);
+	const countProduct = products.length;
+	
+	const pLength = await (await ProductModel.find()).length;
 
+	const numberOfPages = pLength%product_per_page >= 1? parseInt(pLength/product_per_page)+1: parseInt(pLength/product_per_page);
+	
+	console.log("Nop:", numberOfPages);
+	console.log("prLength",pLength);
+	console.log("reqpage", page);
 	res.render('product.ejs', {
 		products,
-		//total produkter
 		countProduct,
-		//current page
 		currentPage: page,
-		//om det finns en till sida.
-		hasNextPage: product_per_page < page * product_per_page,
-		//has previous page
-		hasPreviousPage: page > 1,
-		nextPage: page + 1,
-		previousPage: page - 1,
-
-		//last page
-		lastPage: Math.ceil(countProduct / product_per_page)
+		numberOfPages
 	});
 });
 
