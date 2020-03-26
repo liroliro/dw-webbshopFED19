@@ -175,7 +175,7 @@ router.get('/addToCart/:id', verifyToken, async (req, res) => {
 	const user = await User.findOne({ _id: req.body.user._id });
 	await user.addToCart({ _id: req.params.id });
 
-	res.redirect('/checkout');
+	res.redirect('/product');
 });
 
 router.get('/checkout', verifyToken, async (req, res) => {
