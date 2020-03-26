@@ -9,6 +9,7 @@ const nodemailer = require('nodemailer');
 const sendGridTransport = require('nodemailer-sendgrid-transport');
 const crypto = require('crypto');
 const Product = require('../model/product');
+const flash = require('connect-flash');
 
 const transport = nodemailer.createTransport(
 	sendGridTransport({
@@ -23,25 +24,56 @@ router.get('/register', async (req, res) => {
 });
 
 router.post('/register', async (req, res) => {
-	try {
-		const salt = await bcrypt.genSalt(10);
-		const hashPassword = await bcrypt.hash(req.body.password, salt);
-		if ((req.body.email = await User.findOne({ email: req.body.email }))) {
-			res.send('Denna användare finns redan, testa med en annan email.');
-			setTimeout(() => {
-				res.render('register');
-			}, 3000);
-		}
+	const { email, password } = req.body;
+	let errors = [];
 
-		await new User({
-			email: req.body.email,
-			password: hashPassword
-		}).save();
-		const user = await User.findOne({ email: req.body.email });
+	if (!email || !password) {
+		errors.push({ msg: 'Please enter all fields' });
+	}
 
-		res.render('userprofile', { user });
-	} catch (err) {
-		res.send(err.message);
+	if (password.length < 6) {
+		errors.push({ msg: 'Password must be at least 6 characters' });
+	}
+
+	if (errors.length > 0) {
+		res.render('register', {
+			errors,
+			email,
+			password
+		});
+	} else {
+		User.findOne({ email: email }).then(user => {
+			if (user) {
+				errors.push({ msg: 'Email already exists' });
+				res.render('register', {
+					errors,
+					email,
+					password
+				});
+			} else {
+				const newUser = new User({
+					email,
+					password
+				});
+
+				bcrypt.genSalt(10, (err, salt) => {
+					bcrypt.hash(newUser.password, salt, (err, hash) => {
+						if (err) throw err;
+						newUser.password = hash;
+						newUser
+							.save()
+							.then(user => {
+								req.flash(
+									'success_msg',
+									'You are now registered and can log in'
+								);
+								res.redirect('/login');
+							})
+							.catch(err => console.log(err));
+					});
+				});
+			}
+		});
 	}
 });
 
@@ -59,7 +91,6 @@ router.post('/login', async (req, res) => {
 
 	// Jämför information från databas till input
 	const validUser = await bcrypt.compare(req.body.loginPassword, user.password);
-	console.log(user);
 	if (!validUser) return res.redirect('/register');
 
 	jwt.sign({ user }, 'secretKey', (err, token) => {
@@ -70,7 +101,6 @@ router.post('/login', async (req, res) => {
 			if (!cookie) {
 				res.cookie('jsonwebtoken', token, { maxAge: 3600000, httpOnly: true });
 			}
-			// console.log(user);
 			res.render('userprofile', { user });
 		}
 		res.redirect('/login');
@@ -78,7 +108,7 @@ router.post('/login', async (req, res) => {
 });
 
 router.get('/logout', (req, res) => {
-	res.clearCookie('jsonwebtoken').redirect('/login');
+	res.clearCookie('jsonwebtoken').redirect('back');
 });
 
 router.get('/reset', (req, res) => {
@@ -134,7 +164,6 @@ router.post('/reset/:token', async (req, res) => {
 
 router.get('/wishlist/:id', verifyToken, async (req, res) => {
 	const product = await Product.findOne({ _id: req.params.id });
-	console.log(req.body);
 	const user = await User.findOne({ _id: req.body.user._id });
 
 	await user.addToWishlist(product);
@@ -170,7 +199,6 @@ router.get('/checkout', verifyToken, async (req, res) => {
 		products.push(product);
 	}
 
-	console.log(products);
 	res.render('checkout', { products });
 });
 
