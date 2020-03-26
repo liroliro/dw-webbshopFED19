@@ -1,78 +1,175 @@
-const express = require('express')
-const ProductModel = require('../model/product')
+const express = require('express');
+const ProductModel = require('../model/product');
+const BookingModel = require('../model/booking');
 const router = express.Router();
+const mongoose = require('mongoose');
 
 router.get('/', (req, res) => {
-    let pagination = req.query.page;
-    res.render('index');
-})
+	let pagination = req.query.page;
+	res.render('index');
+});
 
 router.get('/admin', (req, res) => {
-    res.render('admin')
-})
-
-router.get('/cart', (req, res) => {
-    res.render('cart')
-})
-
-router.get('/checkout', (req, res) => {
-    res.render('checkout')
-})
-
-router.get('/createproduct', (req, res) => {
-    const apartment = ProductModel
-    res.render('createproduct', {
-        apartment
-    })
-})
+	res.render('admin');
+});
 
 
-//FUNKAR INTE VVVV
+let newapartment;
+
 router.post('/createproduct', async (req, res) => {
-    const apartment = new ProductModel({
-        name: req.body.name,
-        room: req.body.room,
-        price: req.body.price,
-        url: req.body.url
-    })
+	newapartment = new ProductModel({
+		city: req.body.city,
+		street: req.body.street,
+		descriptions: req.body.descriptions,
+		room: req.body.room,
+		productprice: req.body.productprice,
+		url1: req.body.url1,
+		url2: req.body.url2,
+		url3: req.body.url3,
+		user: '5e68cf2e94a6fb38f4adaded'
+	}).save();
 
-    await apartment.save();
-    res.redirect('/createproduct')
+	//const response = await newapartment.save();
+	res.redirect('/createproduct');
+});
 
-})
-//FUNKAR INTE ^^^^
+router.get('/createproduct', async (req, res) => {
+	const product_per_page = 8;
+	const page = +req.query.page; //number(req.query.page)
+	//räknar total antal produkter
+	const countProduct = ProductModel.find().countDocuments();
 
+	const products = await ProductModel.find()
+		.populate('user -expirationToken -resetToken')
+		.skip(product_per_page * (page - 1))
+		.limit(product_per_page);
+
+	res.render('createproduct.ejs', {
+		products,
+		//total produkter
+		countProduct,
+		//current page
+		currentPage: page,
+		//om det finns en till sida.
+		hasNextPage: product_per_page < page * product_per_page,
+		//has previous page
+		hasPreviousPage: page > 1,
+		nextPage: page + 1,
+		previousPage: page - 1,
+
+		//last page
+		lastPage: Math.ceil(countProduct / product_per_page)
+	});
+});
 
 router.get('/contact', (req, res) => {
-    res.render('contact')
-})
+	res.render('contact');
+});
 
 router.get('/my-pages', (req, res) => {
-    res.render('my-pages')
-})
-
+	res.render('my-pages');
+});
 
 router.get('/product', async (req, res) => {
-    const Items = await ProductModel.find();
 
-    res.render('product', {
-        Items
-    })
+	const product_per_page = 3;
+	const page = +req.query.page; //number(req.query.page)
+	//räknar total antal produkter
+	const products = await ProductModel.find()
+	.skip(product_per_page * (page - 1))
+	.limit(product_per_page);
+	const countProduct = products.length;
+	
+	const pLength = await (await ProductModel.find()).length;
+
+	const numberOfPages = pLength%product_per_page >= 1? parseInt(pLength/product_per_page)+1: parseInt(pLength/product_per_page);
+	
+	console.log("Nop:", numberOfPages);
+	console.log("prLength",pLength);
+	console.log("reqpage", page);
+	res.render('product.ejs', {
+		products,
+		countProduct,
+		currentPage: page,
+		numberOfPages
+	});
+});
+
+/* router.post('/product', async (req, res) => {
+	const newApartment = new ProductModel({
+		name: req.body.name,
+		room: req.body.room,
+		price: req.body.price,
+		url: req.body.url
+	}).save();
+
+	await newApartment.save((err, suc) => {
+		err ? res.send(err.message) : res.redirect('/product');
+	});
+}); */
+
+
+let newBooking;
+router.post('/addtocart', async (req, res) => {
+	console.log(req.body);
+	newBooking = await new BookingModel({
+		/* ownerUserId: ,
+		locationId: , */
+		/* dateTimeFrom: req.body.dateTimeFrom, */
+
+		bookingDate: req.body.bookingDate,
+		numberOfAttendees: req.body.numberOfAttendees
+
+	}).save();
+
+	res.redirect('/addtocart');
+});
+
+//Försöker konvertera string till date i mongoDb//Backlog
+/* const bookingDb = BookingModel.find();
+
+bookingDb.forEach(function (doc) {
+	doc.bookingDate = new ISODate(doc.bookingDate);
+	db.bookingDb.save(doc);
+}) */
+
+
+router.get("/update/:id", async (req, res) => {
+
+	const response = await ProductModel.findById({ _id: req.params.id })
+	console.log(response);
+
+	res.render("edit", { response })
 })
 
-router.post("/product", async (req, res) => {
+router.post("/update/:id", async (req, res) => {
 
-    const newApartment = new ProductModel({
-        name: req.body.name,
-        room: req.body.room,
-        price: req.body.price,
-        url: req.body.url
-    })
-
-    await newApartment.save((err, suc) => {
-        err ? res.send(err.message) : res.redirect('/product')
-    })
-
+	await ProductModel.updateOne({ _id: req.body._id },
+		{
+			$set: {
+				city: req.body.city,
+				street: req.body.street,
+				descriptions: req.body.descriptions,
+				room: req.body.room,
+				productprice: req.body.productprice,
+				url1: req.body.url1,
+				url2: req.body.url2,
+				url3: req.body.url3
+			}
+		},
+		{ runValidators: true })
+	console.log(req.body);
+	res.redirect("/createproduct")
 })
+
+
+router.get("/delete/:id", async (req, res) => {
+	await ProductModel
+		.deleteOne({ _id: req.params.id });
+	res.redirect("/createproduct")
+})
+
+
+
 
 module.exports = router;
