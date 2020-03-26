@@ -5,7 +5,8 @@ const router = express.Router();
 const mongoose = require('mongoose');
 
 router.get('/', (req, res) => {
-	let pagination = req.query.page;
+
+
 	res.render('index');
 });
 
@@ -13,6 +14,9 @@ router.get('/admin', (req, res) => {
 	res.render('admin');
 });
 
+router.get('/checkout', (req, res) => {
+	res.render('checkout');
+});
 
 let newapartment;
 
@@ -33,11 +37,13 @@ router.post('/createproduct', async (req, res) => {
 	res.redirect('/createproduct');
 });
 
+
+
 router.get('/createproduct', async (req, res) => {
-	const product_per_page = 8;
+	const product_per_page = 6;
 	const page = +req.query.page; //number(req.query.page)
 	//räknar total antal produkter
-	const countProduct = ProductModel.find().countDocuments();
+	const countProduct = await ProductModel.find().countDocuments();
 
 	const products = await ProductModel.find()
 		.populate('user -expirationToken -resetToken')
@@ -46,17 +52,14 @@ router.get('/createproduct', async (req, res) => {
 
 	res.render('createproduct.ejs', {
 		products,
-		//total produkter
+
 		countProduct,
-		//current page
+		product_per_page,
 		currentPage: page,
-		//om det finns en till sida.
-		hasNextPage: product_per_page < page * product_per_page,
-		//has previous page
+		hasNextPage: product_per_page > product_per_page * page,
 		hasPreviousPage: page > 1,
 		nextPage: page + 1,
 		previousPage: page - 1,
-
 		//last page
 		lastPage: Math.ceil(countProduct / product_per_page)
 	});
@@ -72,29 +75,26 @@ router.get('/my-pages', (req, res) => {
 
 router.get('/product', async (req, res) => {
 
-	const product_per_page = 8;
-	const page = +req.query.page; //number(req.query.page)
-	//räknar total antal produkter
-	const countProduct = ProductModel.find().countDocuments();
+	const product_per_page = 6;
+	const page = +req.query.page;
+	const countProduct = await ProductModel.find().countDocuments();
 
 	const products = await ProductModel.find()
+		.populate("user -password")
 		.skip(product_per_page * (page - 1))
 		.limit(product_per_page);
 
 	res.render('product.ejs', {
+		page,
 		products,
-		//total produkter
 		countProduct,
-		//current page
+		product_per_page,
 		currentPage: page,
-		//om det finns en till sida.
-		hasNextPage: product_per_page < page * product_per_page,
-		//has previous page
+		hasNextPage: product_per_page > product_per_page * page,
 		hasPreviousPage: page > 1,
 		nextPage: page + 1,
 		previousPage: page - 1,
 
-		//last page
 		lastPage: Math.ceil(countProduct / product_per_page)
 	});
 });
@@ -136,6 +136,15 @@ bookingDb.forEach(function (doc) {
 	doc.bookingDate = new ISODate(doc.bookingDate);
 	db.bookingDb.save(doc);
 }) */
+
+
+
+
+router.get('/addtocart', async (req, res) => {
+
+	res.redirect('/product');
+});
+
 
 
 router.get("/update/:id", async (req, res) => {

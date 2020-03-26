@@ -304,6 +304,9 @@ color: rgb(180, 15, 15);
   justify-content: center;
 margin: 0 auto;
 }
+.paginationBtn {
+  color: black;
+}
 
 @media screen and (min-width: 992px) {
   body {
