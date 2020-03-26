@@ -175,19 +175,7 @@ router.get('/addToCart/:id', verifyToken, async (req, res) => {
 	const user = await User.findOne({ _id: req.body.user._id });
 	await user.addToCart({ _id: req.params.id });
 
-	res.redirect('/cart');
-});
-
-router.get('/cart', verifyToken, async (req, res) => {
-	const user = await User.findOne({ _id: req.body.user._id });
-	const products = [];
-	for (let i = 0; i < user.cart.length; i++) {
-		const product = await Product.findOne(user.cart[i].productId);
-
-		products.push(product);
-	}
-
-	res.render('cart', { products });
+	res.redirect('/checkout');
 });
 
 router.get('/checkout', verifyToken, async (req, res) => {
