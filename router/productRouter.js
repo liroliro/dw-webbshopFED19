@@ -75,20 +75,20 @@ router.get('/my-pages', (req, res) => {
 
 router.get('/product', async (req, res) => {
 
-	const product_per_page = 3;
+	const product_per_page = 6;
 	const page = +req.query.page; //number(req.query.page)
 	//räknar total antal produkter
 	const products = await ProductModel.find()
-	.skip(product_per_page * (page - 1))
-	.limit(product_per_page);
+		.skip(product_per_page * (page - 1))
+		.limit(product_per_page);
 	const countProduct = products.length;
-	
+
 	const pLength = await (await ProductModel.find()).length;
 
-	const numberOfPages = pLength%product_per_page >= 1? parseInt(pLength/product_per_page)+1: parseInt(pLength/product_per_page);
-	
+	const numberOfPages = pLength % product_per_page >= 1 ? parseInt(pLength / product_per_page) + 1 : parseInt(pLength / product_per_page);
+
 	console.log("Nop:", numberOfPages);
-	console.log("prLength",pLength);
+	console.log("prLength", pLength);
 	console.log("reqpage", page);
 	res.render('product.ejs', {
 		page,
@@ -128,17 +128,6 @@ router.post('/addtocart', async (req, res) => {
 
 	res.redirect('/addtocart');
 });
-
-//Försöker konvertera string till date i mongoDb//Backlog
-/* const bookingDb = BookingModel.find();
-
-bookingDb.forEach(function (doc) {
-	doc.bookingDate = new ISODate(doc.bookingDate);
-	db.bookingDb.save(doc);
-}) */
-
-
-
 
 router.get('/addtocart', async (req, res) => {
 
