@@ -108,7 +108,7 @@ router.post('/login', async (req, res) => {
 });
 
 router.get('/logout', (req, res) => {
-	res.clearCookie('jsonwebtoken').redirect('back');
+	res.clearCookie('jsonwebtoken').redirect('/');
 });
 
 router.get('/reset', (req, res) => {
