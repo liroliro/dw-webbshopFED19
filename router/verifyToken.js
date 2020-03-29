@@ -1,14 +1,17 @@
 const jwt = require('jsonwebtoken');
+const User = require('../model/user');
 
-module.exports = (req, res, next) => {
+module.exports = async (req, res, next) => {
 	const token = req.cookies.jsonwebtoken;
-	if (token) {
-		const user = jwt.verify(token, 'secretKey');
-		// console.log(user);
-		req.body = user;
 
+	if (token) {
+		const userObject = jwt.verify(token, 'secretKey');
+		const user = await User.findOne({
+			email: userObject.user.email
+		});
+		req.body.user = user;
 		next();
 	} else {
-		res.send('You are not authorized.');
+		next();
 	}
 };

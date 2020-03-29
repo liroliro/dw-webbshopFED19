@@ -3,7 +3,7 @@
 
 <body>
 	<div class="checkout">
-		<% products.forEach((product) => { %>
+		<%- include('messages.ejs') %> <% products.forEach((product) => { %>
 		<div class="products">
 			<div class="checkout-img">
 				<img class="apt-photo" src="<%= product.url1 %>" />

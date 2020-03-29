@@ -171,23 +171,48 @@ router.get('/wishlist/:id', verifyToken, async (req, res) => {
 	res.send('Wishlisted');
 });
 
-router.get('/addToCart/:id', verifyToken, async (req, res) => {
-	const user = await User.findOne({ _id: req.body.user._id });
-	await user.addToCart({ _id: req.params.id });
-
-	res.redirect('/product');
-});
-
 router.get('/checkout', verifyToken, async (req, res) => {
-	const user = await User.findOne({ _id: req.body.user._id });
-	const products = [];
-	for (let i = 0; i < user.cart.length; i++) {
-		const product = await Product.findOne(user.cart[i].productId);
+	let products = [];
 
+	if (!req.body.user) {
+		req.flash('error_msg', 'Du måste vara inloggad');
+		return res.redirect('/product');
+	}
+
+	user = await User.findOne({
+		_id: req.body.user._id
+	});
+
+	for (let i = 0; i < user.cart.length; i++) {
+		let product = await Product.findOne({
+			_id: user.cart[i].productId
+		});
 		products.push(product);
 	}
 
-	res.render('checkout', { products });
+	res.render('checkout', {
+		products
+	});
+});
+
+router.get('/addToCart/:id', verifyToken, async (req, res) => {
+	let user;
+
+	if (!req.body.user) {
+		user = null;
+
+		req.flash('error_msg', 'Du måste vara inloggad');
+
+		return res.redirect('/product');
+	}
+
+	user = await User.findOne({
+		_id: req.body.user._id
+	});
+	await user.addToCart({ _id: req.params.id });
+
+	req.flash('success_msg', 'Varan är tillagd i varukorgen');
+	res.redirect('/product');
 });
 
 router.get('/delete/:id', verifyToken, async (req, res) => {
@@ -195,15 +220,9 @@ router.get('/delete/:id', verifyToken, async (req, res) => {
 		_id: req.body.user._id
 	});
 
-	user.cart.forEach((e, i) => {
-		if (e.productId == req.params.id) {
-			return user.cart.splice(i, 1);
-		}
-	});
+	await user.removeFromCart(req.params.id);
 
-	await user.save();
-
-	res.redirect('/cart');
+	res.redirect('/checkout');
 });
 
 module.exports = router;

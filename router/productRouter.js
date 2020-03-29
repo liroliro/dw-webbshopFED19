@@ -13,7 +13,6 @@ router.get('/admin', (req, res) => {
 	res.render('admin');
 });
 
-
 let newapartment;
 
 router.post('/createproduct', async (req, res) => {
@@ -66,27 +65,25 @@ router.get('/contact', (req, res) => {
 	res.render('contact');
 });
 
-router.get('/my-pages', (req, res) => {
-	res.render('my-pages');
-});
-
 router.get('/product', async (req, res) => {
-
 	const product_per_page = 3;
 	const page = +req.query.page; //number(req.query.page)
 	//räknar total antal produkter
 	const products = await ProductModel.find()
-	.skip(product_per_page * (page - 1))
-	.limit(product_per_page);
+		.skip(product_per_page * (page - 1))
+		.limit(product_per_page);
 	const countProduct = products.length;
-	
+
 	const pLength = await (await ProductModel.find()).length;
 
-	const numberOfPages = pLength%product_per_page >= 1? parseInt(pLength/product_per_page)+1: parseInt(pLength/product_per_page);
-	
-	console.log("Nop:", numberOfPages);
-	console.log("prLength",pLength);
-	console.log("reqpage", page);
+	const numberOfPages =
+		pLength % product_per_page >= 1
+			? parseInt(pLength / product_per_page) + 1
+			: parseInt(pLength / product_per_page);
+
+	// console.log('Nop:', numberOfPages);
+	// console.log('prLength', pLength);
+	// console.log('reqpage', page);
 	res.render('product.ejs', {
 		products,
 		countProduct,
@@ -94,20 +91,6 @@ router.get('/product', async (req, res) => {
 		numberOfPages
 	});
 });
-
-/* router.post('/product', async (req, res) => {
-	const newApartment = new ProductModel({
-		name: req.body.name,
-		room: req.body.room,
-		price: req.body.price,
-		url: req.body.url
-	}).save();
-
-	await newApartment.save((err, suc) => {
-		err ? res.send(err.message) : res.redirect('/product');
-	});
-}); */
-
 
 let newBooking;
 router.post('/addtocart', async (req, res) => {
@@ -119,7 +102,6 @@ router.post('/addtocart', async (req, res) => {
 
 		bookingDate: req.body.bookingDate,
 		numberOfAttendees: req.body.numberOfAttendees
-
 	}).save();
 
 	res.redirect('/addtocart');
@@ -133,18 +115,16 @@ bookingDb.forEach(function (doc) {
 	db.bookingDb.save(doc);
 }) */
 
-
-router.get("/update/:id", async (req, res) => {
-
-	const response = await ProductModel.findById({ _id: req.params.id })
+router.get('/update/:id', async (req, res) => {
+	const response = await ProductModel.findById({ _id: req.params.id });
 	console.log(response);
 
-	res.render("edit", { response })
-})
+	res.render('edit', { response });
+});
 
-router.post("/update/:id", async (req, res) => {
-
-	await ProductModel.updateOne({ _id: req.body._id },
+router.post('/update/:id', async (req, res) => {
+	await ProductModel.updateOne(
+		{ _id: req.body._id },
 		{
 			$set: {
 				city: req.body.city,
@@ -157,19 +137,10 @@ router.post("/update/:id", async (req, res) => {
 				url3: req.body.url3
 			}
 		},
-		{ runValidators: true })
+		{ runValidators: true }
+	);
 	console.log(req.body);
-	res.redirect("/createproduct")
-})
-
-
-router.get("/delete/:id", async (req, res) => {
-	await ProductModel
-		.deleteOne({ _id: req.params.id });
-	res.redirect("/createproduct")
-})
-
-
-
+	res.redirect('/createproduct');
+});
 
 module.exports = router;
